@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="de">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {preview: 'none', inlineMath: [['$','$'], ['\\(','\\)']]},
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+        messageStyle: 'none' , SVG: { linebreaks: { automatic: true, width: "container" }}
+        });
+        MathJax.Hub.setRenderer("SVG");
+    </script>-->
+    <link href="css/sm.css" rel="stylesheet">
+    <link href="css/smplot.css" rel="stylesheet">
+    <link href="css/module2.css" rel="stylesheet">
+
+    <script src="js/sm.js"></script>
+    <script src="js/smplot.js"></script>
+    <script src="js/modul2.js"></script>
+    <script src="js/matrix.js"></script>
+    <script src="js/nn.js"></script>
+    <!--<script src="js/timer.js"></script>-->
+    <!--<script type="text/javascript" async src="../MathJax/MathJax.js?config=TeX-MML-AM_CHTML"></script>-->
+  </head>
+
+  <body class="loading layout-gray layout-borderless">
+
+    <div id="sm-maincontainer">
+
+      <div id="sm-modal" class="hidden">
+        <div id="sm-modal-close" onclick="document.getElementById('sm-modal').classList.add('hidden')">&times;</div>
+        <img id="sm-modal-image">
+      </div>
+
+      <div id="sm-contentcontainer">
+        <div id="sm-pagecontainer">
+          <section sm-title="1. Introduction">
+            <sm-page sm-title="Everyday sensors" class="debug">
+              <sm-stepBox sm-growing>
+                <sm-step>
+                  <p>Do you remember the last module? Technical sensors have become indispensable in our modern world. Among other things, they are used for measuring and monitoring:</p>
+                </sm-step>
+                <sm-columns sm-two>
+                  <sm-column>
+                    <sm-step>
+                      <p><strong>Radar control</strong></p>
+                      <p>For the safety of road users, but also to protect against noise speed controls are performed. This is done with optical sensors that can analyze the transit time of radar waves.</p>
+                      <sm-image>
+                        <img src="img/Blitzer.png" width="400px">
+                      </sm-image>
+                    </sm-step>
+                  </sm-column>
+                  <sm-column>
+                    <sm-step>
+                      <p><strong>Air quality measurements</strong></p>
+                      <p>Dirty air makes you sick. To check the air quality, the concentration of various air pollutants is determined at many (but far too few) measuring stations.</p>
+                      <sm-image>
+                        <img src="img/Luftqualitätsmessung.png" width="400px">
+                      </sm-image>
+                    </sm-step>
+                  </sm-column>
+                </sm-columns>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Limit and guide values">
+              <sm-stepBox sm-growing>
+                <sm-step>
+                  <p>In particular, when it comes to monitoring compliance with legal limit or benchmark values, it is not sufficient for sensors to only roughly record physical or chemical data of the environment.</p>
+                </sm-step>
+                <sm-columns sm-two>
+                  <sm-column>
+                    <sm-step>
+                      <p>At speed controls the exact speed of passing vehicles is needed.</p>
+                      <sm-image>
+                        <img src="img/geschwindigkeitsanzeige.png" width="400px">
+                      </sm-image>
+                    </sm-step>
+                  </sm-column>
+                  <sm-column>
+                    <sm-step>
+                      <p>In air quality monitoring, the concentration of a substance, e.g. of nitric oxide in the air.</p>
+                      <sm-image sm-modal>
+                        <img sm-modal src="img/stickstoffoxid.png" width="300px">
+                      </sm-image>
+                    </sm-step>
+                  </sm-column>
+                </sm-columns>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Cherry juice paradox">
+              <sm-left sm-ratio="40%">
+                <h1>What is wrong here?</h1>
+                <p>Watch the video and tryto find out what is wrong! Type your explanation in the textfied below.</p>
+                <sm-inputBox>
+                  <p>Explanation:</p>
+                  <textarea class="sm-input" style="height:100px" sm-condition="sentences" sm-feedback="begründung"></textarea>
+                  <sm-feedback sm-negative sm-name="begründung">Your explanation is too short!</sm-feedback>
+                </sm-inputBox>
+              </sm-left>
+              <sm-right>
+                <video sm-name="video" src="video/flasche.mp4" width="100%" controls style="filter:contrast(110%) brightness(100%)"></video>
+                <sm-options sm-horizontal>
+                  <sm-option sm-onClick="elem('video').playbackRate = 0.25">slow-motion</sm-option>
+                  <sm-option sm-selected sm-onClick="elem('video').playbackRate = 1.0;">normal</sm-option>
+                  <sm-option sm-onClick="elem('video').playbackRate = 5.0;">time lapse</sm-option>
+                </sm-options>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="What awaits you in this module">
+
+
+              <sm-tableOfContents>
+                <sm-row sm-type="theory">
+                  <sm-title>Theoretical fundamentals</sm-title>
+                  <sm-content>
+                    <sm-columns style="display: grid;
+                            grid-template-columns: 2fr 1fr;">
+                      <sm-column>
+                        <p>Calibration - what is that?</p>
+                        <p>Functionality of semiconductor gas sensors, revision and deepening</p>
+                        <p>Summary of the measuring process</p>
+                        <p>Concentrations of gases</p>
+                      </sm-column>
+                      <sm-column>
+                        <img src="img/modul2a/titelseite/bild1.svg" width="100%">
+                      </sm-column>
+                    </sm-columns>
+                  </sm-content>
+                </sm-row>
+                <sm-row sm-type="experiment">
+                  <sm-title>Experimental basis</sm-title>
+                  <sm-content>
+                    <sm-columns style="display: grid;
+                            grid-template-columns: 2fr 1fr;">
+                      <sm-column>
+                        <p>Experimental setup and implementation</p>
+                        <p>Usage of the calibration software</p>
+                      </sm-column>
+                      <sm-column>
+                        <img src="img/modul2a/titelseite/bild2.PNG" width="100%">
+                      </sm-column>
+                    </sm-columns>
+                  </sm-content>
+                </sm-row>
+                <sm-row sm-type="theory">
+                  <sm-title>Calibration on ethanol</sm-title>
+                  <sm-content>
+                    <sm-columns style="display: grid;
+                            grid-template-columns: 2fr 1fr;">
+                      <sm-column>
+                        <p>Collection of training data.</p>
+                        <p>A mathematical model of the least wrong solution.</p>
+                        <p>Determination of an unknown concentration.</p>
+                      </sm-column>
+                      <sm-column>
+                        <img src="img/modul2a/titelseite/bild3.PNG" width="100%">
+                      </sm-column>
+                    </sm-columns>
+                  </sm-content>
+                </sm-row>
+              </sm-tableOfContents>
+            </sm-page>
+          </section>
+
+          <section sm-title="2. Theoretical fundamentals"></section>
+          <section sm-title="Calibration, conversion and assignment using the example of the thermometer" sm-subsection>
+            <sm-page sm-title="Calibration of a thermometer" sm-onEnter="modul2.thermometer.initialize();modul2.thermometer.locate(140,45);">
+              <sm-left>
+                <sm-inputBox sm-reveal="text">
+                  <p>Arrange the temperatures &vartheta;<sub>1</sub>, &vartheta;<sub>2</sub>, &vartheta;<sub>3</sub> according to their values in increasing orders. Write the indices 1, 2 and 3 in the lower inequality chain.</p>
+                  <p>You can measure the temperature with the thermometer. Move it with the mouse.</p>
+                  <div style="background-image:url('img/thermometer/temperaturen.svg');
+                                        background-repeat: no-repeat;
+                                        background-size: 100%;
+                                        width: 350px;
+                                        height: 60px;
+                                        margin: auto;
+                                        position: relative">
+                    <input sm-name="index1" class="sm-input" type="text" style="position: absolute; left: 9%; top: 20%; width: 32px;text-align:left" sm-condition="equal" sm-conditionValue="2" sm-feedback="wrong">
+                    <input sm-name="index2" class="sm-input" type="text" style="position: absolute; left: 48%; top: 20%; width: 32px;text-align:left" sm-condition="equal" sm-conditionValue="1" sm-feedback="wrong">
+                    <input sm-name="index3" class="sm-input" type="text" style="position: absolute; left: 86.5%; top: 20%; width: 32px;text-align:left" sm-condition="equal" sm-conditionValue="3" sm-feedback="wrong">
+                  </div>
+
+                  <p>Explain your answer:</p>
+                  <textarea class="sm-input" style="height:100px" sm-condition="sentences" sm-feedback="begründung"></textarea>
+
+                  <sm-feedback sm-negative sm-name="wrong">The order is incorrect!</sm-feedback>
+                  <sm-feedback sm-negative sm-name="begründung">Your explanation is too short!</sm-feedback>
+                  <sm-feedback sm-positive sm-name="correct">The order is correct!</sm-feedback>
+                </sm-inputBox>
+                <p sm-name="text" style="margin-top:20px">You can read the temperature at the height of the liquid, as the liquid expands in the thermometer with increasing temperature. The higher the column of liquid, the higher the temperature.</p>
+              </sm-left>
+              <sm-right>
+                <div class="sm-thermometer-container" sm-name="thermometer-container" sm-buckets="[{pos:0,theta:60},{pos:0.5,theta:10},{pos:1,theta:95}]" style="margin-left:20px;margin-right:20px">
+                  <div class="sm-thermometer-bottich" style="background-image:url('img/thermometer/bottich-wasser1.svg');"></div>
+                  <div class="sm-thermometer-bottich" style="background-image:url('img/thermometer/bottich-wasser2.svg');right:50%;transform:translateX(50%);"></div>
+                  <div class="sm-thermometer-bottich" style="background-image:url('img/thermometer/bottich-wasser3.svg');right:0%;"></div>
+                  <div class="sm-thermometer" sm-name="thermometer">
+                    <div class="sm-thermometer-fluid" sm-name="thermometer-fluid"></div>
+                  </div>
+                </div>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="Conversion and assignment 1/2" sm-onEnter="modul2.thermometer.initialize();modul2.thermometer.locate(140,45);">
+              <sm-left>
+                <sm-inputBox sm-inputs="theta1,theta2,theta3,theta4,theta5,theta6,theta7">
+                  <p>We can not yet specify a value of the temperature. For this we would have to know which liquid level <i>h</i> at which temperature? established. Such <strong> mapping <i>h</i> → <i> &vartheta; </i></strong> is the basis for its
+                    calibration in the example of the liquid thermometer. This relationship is (approximately) linear.</p>
+
+                  <p>According to the Celsius scale, ice water has a temperature of 0 ° C and boiling water a temperature of 100 ° C. The expansion of the liquid column is proportional to the temperature.</p>
+
+                  <p>Label the thermometer!</p>
+
+                  <sm-feedback sm-negative sm-name="wrong">Not all specified temperatures on the scale are correct!</sm-feedback>
+                  <sm-feedback sm-name="correct"> Right! Due to the linear relationship between rise height <i>h</i> and the temperature &#120599; the distances of the heights of two temperatures are equidistant.</sm-feedback>
+                </sm-inputBox>
+              </sm-left>
+              <sm-right>
+                <div class="sm-thermometer-container" sm-name="thermometer-container" sm-buckets="[{pos:0,theta:0},{pos:1,theta:100}]" style="margin-left:20px;margin-right:20px">
+                  <div class="sm-thermometer-line" sm-name="thermometer-line"></div>
+                  <div class="sm-thermometer-inputcontainer">
+                    <input sm-name="theta7" class="sm-input" type="number" style="position:absolute;left:72%;top:15.5%;width:50px;" sm-condition="equal" sm-conditionValue="125" sm-feedback="wrong">
+                    <input sm-name="theta6" class="sm-input" type="number" style="position:absolute;left:72%;top:26.5%;width:50px;" sm-condition="equal" sm-conditionValue="100" sm-feedback="wrong">
+                    <input sm-name="theta5" class="sm-input" type="number" style="position:absolute;left:72%;top:37.5%;width:50px;" sm-condition="equal" sm-conditionValue="75" sm-feedback="wrong">
+                    <input sm-name="theta4" class="sm-input" type="number" style="position:absolute;left:72%;top:48.5%;width:50px;" sm-condition="equal" sm-conditionValue="50" sm-feedback="wrong">
+                    <input sm-name="theta3" class="sm-input" type="number" style="position:absolute;left:72%;top:59.5%;width:50px;" sm-condition="equal" sm-conditionValue="25" sm-feedback="wrong">
+                    <input sm-name="theta2" class="sm-input" type="number" style="position:absolute;left:72%;top:70.5%;width:50px;" sm-condition="equal" sm-conditionValue="0" sm-feedback="wrong">
+                    <input sm-name="theta1" class="sm-input" type="number" style="position:absolute;left:72%;top:81.5%;width:50px;" sm-condition="equal" sm-conditionValue="-25" sm-feedback="wrong">
+                  </div>
+                  <div class="sm-thermometer-bottich" style="background-image:url('img/thermometer/bottich-wasser-kalt.svg');"></div>
+                  <div class="sm-thermometer-bottich" style="background-image:url('img/thermometer/bottich-wasser-heiß.svg');right:0%;"></div>
+                  <div class="sm-thermometer" sm-name="thermometer">
+                    <div class="sm-thermometer-fluid" sm-name="thermometer-fluid"></div>
+                  </div>
+                </div>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="Conversion and assignment 2/2" sm-onEnter="modul2.thermometer.initialize();modul2.thermometer.locate(420,45);">
+              <p>Now use your calibrated thermometer to determine the temperatures of the three vessels.</p>
+              <sm-inputBox>
+                <sm-columns sm-three>
+                  <sm-column>&#120599;<sub>1</sub> = <input class="sm-input" style="width:50px" sm-name="theta1" type="number" sm-condition="inRange" sm-conditionMin="59" sm-conditionMax="61" sm-feedback="wrong" />C°</sm-column>
+                  <sm-column>&#120599;<sub>2</sub> = <input class="sm-input" style="width:50px" sm-name="theta2" type="number" sm-condition="inRange" sm-conditionMin="9" sm-conditionMax="10" sm-feedback="wrong" />C°</sm-column>
+                  <sm-column>&#120599;<sub>3</sub> = <input class="sm-input" style="width:50px" sm-name="theta3" type="number" sm-condition="inRange" sm-conditionMin="94" sm-conditionMax="96" sm-feedback="wrong" />C°</sm-column>
+                </sm-columns>
+
+                <sm-feedback sm-name="wrong" sm-wrong>Not all answers are correct. Correct them and press again on <q>confirm</q>.</sm-feedback>
+                <sm-feedback sm-name="correct" sm-correct>The answers are correct!</sm-feedback>
+              </sm-inputBox>
+
+              <div class="sm-thermometer-container" sm-name="thermometer-container" sm-buckets="[{pos:0.5,theta:60},{pos:0.75,theta:10},{pos:1,theta:95}]">
+                <div class="sm-thermometer-bottich" style="background-image:url('img/thermometer/bottich-wasser1.svg');right:50%;transform:translateX(50%);"></div>
+                <div class="sm-thermometer-bottich" style="background-image:url('img/thermometer/bottich-wasser2.svg');right:25%;transform:translateX(25%);"></div>
+                <div class="sm-thermometer-bottich" style="background-image:url('img/thermometer/bottich-wasser3.svg');right:0%;"></div>
+                <div class="sm-thermometer-diagramm" sm-name="thermometer-diagramm"></div>
+                <div class="sm-thermometer-line" sm-name="thermometer-line"></div>
+                <div class="sm-thermometer-vline" sm-name="thermometer-vline"></div>
+                <div class="sm-thermometer" sm-name="thermometer">
+                  <div class="sm-thermometer-fluid" sm-name="thermometer-fluid"></div>
+                  <div class="sm-thermometer-skala" sm-name="thermometer-skala"></div>
+                </div>
+              </div>
+            </sm-page>
+
+            <sm-page sm-title="Discussion about 'conversion'">
+              <p>Follow the brief conversation between the teacher and a student discussing the <q>essence</q> of calibrating a level thermometer.</p>
+              <sm-stepBox>
+                <div class="sm-discussion-container">
+                  <div class="sm-discussion-board"></div>
+                  <div class="sm-discussion-head left" sm-name="head-pupil">
+                    <div class="sm-discussion-mouth" sm-name="mouth-pupil"></div>
+                  </div>
+                  <div class="sm-discussion-head right" sm-name="head-teacher">
+                    <div class="sm-discussion-mouth" sm-name="mouth-teacher"></div>
+                  </div>
+
+                  <sm-step></sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.add('speaking'); elem('mouth-teacher').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left">A level thermometer measures the temperature!</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.remove('speaking'); elem('mouth-teacher').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right">That is not quite right.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.add('speaking'); elem('mouth-teacher').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left">How so? The thermometer shows the temperature!</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.remove('speaking'); elem('mouth-teacher').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right">And where do you see the temperature?</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.add('speaking'); elem('mouth-teacher').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left">The scale shows it. Depending on how high the liquid column is.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.remove('speaking'); elem('mouth-teacher').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right">Right. Actually, we measure the height of rise.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.add('speaking'); elem('mouth-teacher').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left">Ah, exactly! Only the scale shows us which height corresponds to which temperature.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.remove('speaking'); elem('mouth-teacher').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right">That's the way it is! The scale is the result of a calibration. It is based on the assignment of a rise height to a temperature.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.add('speaking'); elem('mouth-teacher').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left">Yes, I understood that. Mmmhh &ndash; But why actually this detour?</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.remove('speaking'); elem('mouth-teacher').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right">You mean: why do not we measure the temperature directly?</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.add('speaking'); elem('mouth-teacher').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left">Yes, exactly.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.remove('speaking'); elem('mouth-teacher').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right">At best, we can roughly estimate temperatures through our senses ...</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.add('speaking'); elem('mouth-teacher').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left">... heights on the other hand can be measured accurately. Nice. That's a great idea.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.remove('speaking'); elem('mouth-teacher').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right">This idea can also be described by the term <q>assignment</q>.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.add('speaking'); elem('mouth-teacher').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left">Yes, I know what you mean: The temperature is, so to speak, <q>assigned</q> to the rise.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.remove('speaking'); elem('mouth-teacher').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right">And the calibration allows the way back from the height of rise to the temperature.</div>
+                  </sm-step>
+
+                  <sm-step sm-onDisplay="elem('mouth-pupil').classList.add('speaking'); elem('mouth-teacher').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left">That's not hard at all.</div>
+                  </sm-step>
+
+                  <sm-step>
+                    <sm-importantBox style="position:absolute;left:50%;transform:translateX(-50%);top:20px">Let's summarize the conversation and complete it with a diagram ...</sm-importantBox>
+                  </sm-step>
+                </div>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="From thermometers to gas sensors">
+              <sm-stepBox>
+                <div style="min-height:130px">
+                  <p sm-name="description-1" sm-clap sm-popup>The measuring principle with the steps <q>assignment</q> and <q>calibration</q> is quite analogous for technical sensors, but is usually more difficult to implement. Gas sensors (more
+                    precisely semiconductor gas sensors) are such technical sensors. Semiconductor gas sensors) are such technical sensors</p>
+                  <p sm-name="description-2" sm-clap sm-popup>Let's compare the principle for the liquid thermometer and the gas sensor:</p>
+                  <p sm-name="description-3" style="margin-top:0" sm-clap sm-popup>The derived measured quantities in the semiconductor gas sensor are electrical (as with many technical sensors as well). This has the advantage that the raw data can
+                    be saved and processed with a computer. In fact, the calibration of gas sensors is possible only by computer-aided signal processing.</p>
+                  <p sm-name="description-4" sm-clap sm-popup>Therefore, we supplement the scheme for the gas sensor with an important aspect:</p>
+                </div>
+                <sm-canvas>
+                  <div style="display:grid;
+                                        grid-template-columns: 1fr 2fr 1.5fr 2fr 3fr;
+                                        grid-gap: 30px 20px;">
+                    <div></div>
+                    <div sm-name="title-temp" class="sm-textbox" style="font-size:16pt;font-weight:bold">thermometer</div>
+                    <div></div>
+                    <div sm-name="title-sensor" class="sm-textbox" style="font-size:16pt;font-weight:bold">gas sensor</div>
+                    <div></div>
+                    <div sm-name="descr-a" class="sm-textbox bordered orange" style="font-size: 10pt;margin:5px 0px">original measurement (not directly determinable)</div>
+                    <div sm-name="temp-a" class="sm-textbox bordered orange" style="font-size: 16pt">temperature</div>
+                    <div sm-name="wandlung" class="sm-textbox" style="position:relative;">
+                      <div style="position:absolute;top:110%;width:100%;text-align:center;left:0;font-size:16pt">conversion</div>
+                    </div>
+                    <div sm-name="sensor-a" class="sm-textbox bordered orange" style="font-size: 16pt">concentration</div>
+                    <div style="grid-column:5/5;grid-row:2/5;position: relative;">
+                      <div class="sm-textbox sm-wandlungdiagramm-text" style="top:38%" sm-name="text-1">In Module 1, you saw that when measuring gases, the electrical resistance of the sensor is detected. Compared to the liquid thermometer, the
+                        resistance assumes the analogous role of the rise height.</div>
+                      <div class="sm-wandlungdiagramm-text sm-textbox" style="top:25%" sm-name="text-2">The gas-specific measured variable (for example, the concentration) was thus converted into the easily detectable measured variable of the
+                        electrical resistance.</div>
+                      <div class="sm-wandlungdiagramm-text sm-textbox" style="top:42%" sm-name="text-3">In this form, the sensor corresponds approximately to the thermometer without a scale. As an application you have differentiated in module 1
+                        different gases from each other.</div>
+                      <div class="sm-wandlungdiagramm-text sm-textbox" style="top:72%" sm-name="text-4">An important application is also to record the concentration of a target gas.</div>
+                      <div class="sm-wandlungdiagramm-text sm-textbox" style="top:53%" sm-name="text-5">However, this succeeds only after the sensor has been calibrated. For this we have to find a connection between the concentration and the sensor
+                        resistance.</div>
+                    </div>
+                    <div sm-name="descr-b" class="sm-textbox bordered blue" style="font-size: 10pt;margin:5px 0px">derived measurement variable (raw data)</div>
+                    <div sm-name="temp-b" class="sm-textbox bordered blue" style="font-size: 16pt">rising height</div>
+                    <div sm-name="kalibrierung" class="sm-textbox" style="position:relative;">
+                      <div style="position:absolute;top:110%;width:100%;text-align:center;left:0;font-size:16pt">calibration</div>
+                      <div sm-name="computer" class="sm-textbox bordered magenta" style="position:absolute;left:-160px;width:150px;top:80%;">computer-aided signal processing</div>
+                    </div>
+                    <div sm-name="sensor-b" class="sm-textbox bordered blue" style="font-size: 16pt">sensor resistance</div>
+                    <div sm-name="descr-c" class="sm-textbox bordered magenta" style="font-size: 10pt;margin:5px 0px">original measurement variable (indirectly determined)</div>
+                    <div sm-name="temp-c"" class=" sm-textbox bordered magenta" style="font-size: 16pt">temperature</div>
+                    <div></div>
+                    <div sm-name="sensor-c"" class=" sm-textbox bordered magenta" style="font-size: 16pt">concentration</div>
+                  </div>
+                  <sm-canvas-line sm-name="temp-ab" sm-from="temp-a" sm-to="temp-b" sm-arrowto sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="temp-bc" sm-from="temp-b" sm-to="temp-c" sm-arrowto sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="sensor-ab" sm-from="sensor-a" sm-to="sensor-b" sm-arrowto sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="sensor-bc" sm-from="sensor-b" sm-to="sensor-c" sm-arrowto sm-anchors="south north"></sm-canvas-line>
+                </sm-canvas>
+
+                <sm-step sm-reveal="description-1,description-2"></sm-step>
+                <sm-step sm-reveal="title-temp,title-sensor,descr-a,descr-b,descr-c,temp-a,temp-b,temp-c,wandlung,kalibrierung,temp-ab,temp-bc"></sm-step>
+                <sm-step sm-reveal="text-1,sensor-b"></sm-step>
+                <sm-step sm-reveal="text-2,sensor-a,sensor-ab" sm-hide="text-1"></sm-step>
+                <sm-step sm-reveal="text-3" sm-hide="text-2"></sm-step>
+                <sm-step sm-reveal="text-4" sm-hide="text-3"></sm-step>
+                <sm-step sm-reveal="text-5,sensor-c,sensor-bc" sm-hide="text-4"></sm-step>
+                <sm-step sm-reveal="description-3" sm-hide="text-5,description-1,description-2,title-temp,temp-a,temp-b,temp-c,temp-ab,temp-bc"></sm-step>
+                <sm-step sm-reveal="description-4,computer"></sm-step>
+              </sm-stepBox>
+            </sm-page>
+          </section>
+
+          <section sm-title="How Semiconductor Gas Sensors Work - Revision and Deepening" sm-subsection>
+            <sm-page sm-title="Revision 1/2">
+              <sm-stepBox>
+                <sm-question sm-name="question" sm-type="clickthru" sm-header="header" class="hideSubmit">
+                  <sm-left sm-ratio="60%" style="padding-right:10px">
+                    <p sm-name="text1" sm-clap>The derived measurement variable of semiconductor gas sensors is the sensor resistance <i>R</i>.</p>
+                    <p sm-name="text2" sm-clap>The sensor resistance depends primarily on the following <strong>primary variables</strong>:</p>
+                    <ul sm-name="text3" sm-clap>
+                      <li>Composition of the target gas (gas type)</li>
+                      <li>Concentration of the target gas (gas concentration)</li>
+                      <li>sensor temperature</li>
+                    </ul>
+                    <p sm-name="text4" sm-clap>The temperature of the sensor is regulated by a heating voltage.</p>
+                    <div sm-name="text5" sm-clap>
+                      <p>The temperature dependence of the sensor resistance is very important for the desired calibration.</p>
+                      <p>That is why in Module 1 you were able to distinguish different gases, as they have characteristic dependencies <i>R</i>(&#120599;).</p>
+                    </div>
+                    <div sm-name="text6" sm-clap>
+                      <p>As an example, the graph below shows the dependence of the sensor resistance on the sensor temperature of Module 1 (for humid air over a water surface and for the effluents of apple juice).</p>
+                      <div style="width:100%;text-align: center"><img src="img/diagramme/sensorwiderstand-sensortemperatur.png" width="300px"></div>
+                    </div>
+                    <div sm-name="text7" sm-clap>
+                      <p>By modeling the processes inside the sensor and on the sensor surface, you got to know other variables of how the sensor works (secondary variables).</p>
+                      <sm-image>
+                        <sm-content>
+                          <img src="img/sensor-modell/beispiel.svg" width="100%">
+                          <img src="img/sensor-modell/beispiel-text1.svg">
+                        </sm-content>
+                      </sm-image>
+                      <p sm-name="text8">The secondary variables are ...</p>
+                      <ul>
+                        <li sm-name="text9">... the velocity (<img sm-symbol src="img/sensor-modell/pfeil.svg">) of the electrons that are responsible for charge transport in the sensor.</li>
+                        <li sm-name="text10">... the coverage of the sensor surface with oxygen (<img sm-symbol src="img/sensor-modell/luftteilchen.svg">). This oxygen binds free electrons and thus influences the number of free electrons.</li>
+                      </ul>
+                    </div>
+                    <div sm-name="text11" sm-clap>
+                      <h1>Exercises</h1>
+                      <p>Decide in the context X &rightarrow; Y whether the influence of X on Y is in the same direction or in opposite directions. By clicking on the circle symbols you can switch between:</p>
+                      <p style="margin:0"><img sm-symbol src="img/zuordnungen/zuordnung1.svg"> the larger X, the larger Y (concordant)</p>
+                      <p style="margin:0"><img sm-symbol src="img/zuordnungen/zuordnung2.svg"> the larger X, the smaller Y (antithetical)</p>
+                      <p style="margin:0"><img sm-symbol src="img/zuordnungen/zuordnung3.svg"> no general statement possible</p>
+                      <p style="margin:0"><img sm-symbol src="img/zuordnungen/zuordnung4.svg"> I don't know</p>
+                      <p>An example of the relationship between <i>number of free electrons</i> (X) and <i>sensor resistance</i> (Y) is already given:</p>
+                      <p>The more electrons in the sensor material contribute to the charge transport, the greater the current flow <i>I</i> at a given voltage <i>U</i> which is applied to the sensor. If the number of free electrons increases, the
+                        sensor resistance <i>R = U / I</i> decreases.</p>
+                    </div>
+                  </sm-left>
+                  <sm-right>
+                    <sm-canvas style="margin: 10px 0px">
+                      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 0px 20px; margin: 0px 0px">
+                        <div sm-name="gasart" class="sm-textbox bordered magenta">gas type</div>
+                        <div sm-name="konzentration" class="sm-textbox bordered magenta">gas concentration</div>
+                        <div sm-name="temperatur" class="sm-textbox bordered magenta">sensor temperature</div>
+                      </div>
+                      <div style="display:grid; grid-template-columns: 1fr 1fr; margin: 80px 50px; grid-gap: 50px 20px">
+                        <div sm-name="bedeckung" class="sm-textbox bordered blue">Coverage of the surface of the sensor with oxygen</div>
+                        <div></div>
+                        <div sm-name="heizspannung" class="sm-textbox bordered orange" style="position: absolute; right:0%;top:60%">heating voltage</div>
+                        <div sm-name="anzahl" class="sm-textbox bordered blue">number of free electrons</div>
+                        <div sm-name="geschwindigkeit" class="sm-textbox bordered blue">velocity of the electrons</div>
+                      </div>
+                      <div sm-name="widerstand" style="margin: 0px auto; width: 200px" class="sm-textbox bordered orange">sensor resistance</div>
+
+                      <sm-canvas-line sm-name="gasart-bedeckung" sm-from="gasart" sm-to="bedeckung" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="konzentration-bedeckung" sm-from="konzentration" sm-to="bedeckung" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="temperatur-bedeckung" sm-from="temperatur" sm-to="bedeckung" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="temperatur-heizspannung" sm-from="temperatur" sm-to="heizspannung" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="temperatur-geschwindigkeit" sm-from="temperatur" sm-to="geschwindigkeit" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="bedeckung-anzahl" sm-from="bedeckung" sm-to="anzahl" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="anzahl-widerstand" sm-from="anzahl" sm-to="widerstand" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="geschwindigkeit-widerstand" sm-from="geschwindigkeit" sm-to="widerstand" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="gasart-widerstand" sm-from="gasart" sm-to="widerstand" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="konzentration-widerstand" sm-from="konzentration" sm-to="widerstand" sm-anchors="south north"></sm-canvas-line>
+                      <sm-canvas-line sm-name="temperatur-widerstand" sm-from="temperatur" sm-to="widerstand" sm-anchors="south north"></sm-canvas-line>
+
+                      <sm-canvas-locate sm-name="input-gasart-bedeckung" sm-between="gasart bedeckung" sm-anchors="south north">
+                        <sm-item sm-correct="4"></sm-item>
+                      </sm-canvas-locate>
+                      <sm-canvas-locate sm-name="input-konzentration-bedeckung" sm-between="konzentration bedeckung" sm-anchors="south north">
+                        <sm-item sm-correct="3"></sm-item>
+                      </sm-canvas-locate>
+                      <sm-canvas-locate sm-name="input-temperatur-bedeckung" sm-between="temperatur bedeckung" sm-anchors="south north">
+                        <sm-item sm-correct="2"></sm-item>
+                      </sm-canvas-locate>
+                      <sm-canvas-locate sm-name="input-temperatur-geschwindigkeit" sm-between="temperatur geschwindigkeit" sm-anchors="south north">
+                        <sm-item sm-correct="2"></sm-item>
+                      </sm-canvas-locate>
+                      <sm-canvas-locate sm-name="input-geschwindigkeit-widerstand" sm-between="geschwindigkeit widerstand" sm-anchors="south north">
+                        <sm-item sm-correct="3"></sm-item>
+                      </sm-canvas-locate>
+                      <sm-canvas-locate sm-name="input-bedeckung-anzahl" sm-between="bedeckung anzahl" sm-anchors="south north">
+                        <sm-item sm-correct="3"></sm-item>
+                      </sm-canvas-locate>
+                      <sm-canvas-locate sm-name="input-anzahl-widerstand" sm-between="anzahl widerstand" sm-anchors="south north">
+                        <sm-item sm-correct="3" sm-default="3"></sm-item>
+                      </sm-canvas-locate>
+                    </sm-canvas>
+                  </sm-right>
+
+                  <sm-feedback sm-wrong>
+                    <p>
+                      <sm-feedback-counter></sm-feedback-counter>Some of your answers are incorrect. Correct them an click on <q>confirm</q> again.
+                    </p>
+                    <sm-options sm-horizontal>
+                      <sm-option sm-selected sm-onClick="elem('question').classList.remove('showerrors')">Do not show mistakes</sm-option>
+                      <sm-option sm-onClick="elem('question').classList.add('showerrors')">Show mistakes</sm-option>
+                    </sm-options>
+                  </sm-feedback>
+                  <sm-feedback sm-correct>All answers are correct!</sm-feedback>
+                </sm-question>
+
+                <sm-step sm-reveal="text1,widerstand"></sm-step>
+                <sm-step sm-reveal="text2,text3,gasart,konzentration,temperatur,gasart-widerstand,konzentration-widerstand,temperatur-widerstand"></sm-step>
+                <sm-step sm-reveal="text4,heizspannung,temperatur-heizspannung"></sm-step>
+                <sm-step sm-reveal="text5"></sm-step>
+                <sm-step sm-hide="text1,text2,text3,text4,text5" sm-reveal="text6"></sm-step>
+                <sm-step sm-hide="text6,heizspannung,temperatur-heizspannung" sm-reveal="text7"></sm-step>
+                <sm-step sm-reveal="text8,text9,temperatur-geschwindigkeit,geschwindigkeit,geschwindigkeit-widerstand" sm-hide="temperatur-widerstand"></sm-step>
+                <sm-step sm-reveal="text10,gasart-bedeckung,bedeckung,bedeckung-anzahl,anzahl,anzahl-widerstand,konzentration-bedeckung,temperatur-bedeckung" sm-hide="konzentration-widerstand,gasart-widerstand"></sm-step>
+                <sm-step sm-reveal="text11,input-gasart-bedeckung,input-konzentration-bedeckung,input-temperatur-geschwindigkeit,input-temperatur-bedeckung,input-geschwindigkeit-widerstand,input-bedeckung-anzahl,input-anzahl-widerstand" sm-hide="text7,text8,text9,text10"
+                  sm-ondisplay="elem('question').classList.remove('hideSubmit')"></sm-step>
+
+                <sm-header sm-name="header">
+                  <sm-head><img src="img/zuordnungen/zuordnung4.svg" width="30px" height="30px"></sm-head>
+                  <sm-head><img src="img/zuordnungen/zuordnung1.svg" width="30px" height="30px"></sm-head>
+                  <sm-head><img src="img/zuordnungen/zuordnung2.svg" width="30px" height="30px"></sm-head>
+                  <sm-head><img src="img/zuordnungen/zuordnung3.svg" width="30px" height="30px"></sm-head>
+                </sm-header>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Revision 2/2">
+              <sm-left>
+                <sm-stepBox>
+                  <div style="padding-bottom:180px"></div>
+                  <sm-step>Remember the exercise from module 1, which investigated the temperature dependence of the sensor resistance (see right).</sm-step>
+                  <sm-step>After setting a new heating voltage (temperature change) you had to wait a few seconds before you have noted the value of the resistance.</sm-step>
+                  <sm-step>The reason for this is that the sensor resistance does not immediately assume a constant value after an (abrupt) temperature change, but gradually approaches it.</sm-step>
+                  <sm-step>Research has shown that this <i>balancing process</i> contains important information that can be used for the intended calibration.</sm-step>
+                  <sm-step>But let's start at the beginning and take a closer look at such a balancing process with the experimental setup of Module 1.</sm-step>
+                </sm-stepBox>
+              </sm-left>
+              <sm-right>
+                <img src="img/schrittfolge.svg" width="100%">
+                <div style="width:100%;text-align:center"><img src="img/diagramme/sensorwiderstand-sensortemperatur.png" width="50%"></div>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="Balancing process 1/2">
+              <div style="display:flex">
+                <sm-left sm-ratio="40%">
+                  <p>In the video, the heating voltage is suddenly increased from <span style="white-space: nowrap">1.0 V</span> to <span style="white-space: nowrap">1.5 V</span> (&#8793;temperature jump from approx. <span style="white-space: nowrap">100
+                      °C</span> to <span style="white-space: nowrap">175 °C</span>). The sensor resistance is measured over time. <p>Seht euch das Video an. Dabei könnt ihr zwischen normaler Abspiel&shy;geschwindigkeit, Zeitlupe oder Zeitraffer
+                      wechseln.</p>
+                    <p>Exercise: Which of the following five resistance-time curves fits the measurement in the video?</p>
+                </sm-left>
+                <sm-right>
+                  <video sm-name="video" src="video/sprung1.mp4" width="100%" controls style="filter:contrast(110%) brightness(200%)"></video>
+                  <sm-options sm-horizontal>
+                    <sm-option sm-onClick="elem('video').playbackRate = 0.25">slow motion</sm-option>
+                    <sm-option sm-selected sm-onClick="elem('video').playbackRate = 1.0;">normal</sm-option>
+                    <sm-option sm-onClick="elem('video').playbackRate = 5.0;">time lapse</sm-option>
+                  </sm-options>
+                </sm-right>
+              </div>
+
+              <sm-question sm-type="check" sm-singlechoice sm-image>
+                <sm-item style="flex-basis:20%" sm-correct><img src="img/diagramme/ausgleichsprozess1.svg" width="200px"></sm-item>
+                <sm-item style="flex-basis:20%"><img src="img/diagramme/ausgleichsprozess2.svg" width="200px"></sm-item>
+                <sm-item style="flex-basis:20%"><img src="img/diagramme/ausgleichsprozess3.svg" width="200px"></sm-item>
+                <sm-item style="flex-basis:20%"><img src="img/diagramme/ausgleichsprozess4.svg" width="200px"></sm-item>
+                <sm-item style="flex-basis:20%"><img src="img/diagramme/ausgleichsprozess5.svg" width="200px"></sm-item>
+
+                <sm-feedback sm-wrong>The answer is wrong. Correct your answer and press <q>confirm</q> again.</sm-feedback>
+                <sm-feedback sm-correct>The answer is correct!</sm-feedback>
+              </sm-question>
+            </sm-page>
+
+            <sm-page sm-title="Balancing process 2/2">
+              <p>The next video builds on the end of the previous one. After 10 s, the heating voltage is reduced from <span style="white-space: nowrap">1.5 V</span> back to <span style="white-space: nowrap">1.0 V</span> (temperature jump from
+                approx. <span style="white-space: nowrap">175 °C</span> to <span style="white-space: nowrap">100 °C</span>).</p>
+              <p>Watch the video and follow the progress in the diagram.</p>
+              <sm-left>
+                <video sm-name="video" src="video/sprung2.mp4" width="100%" controls style="filter:contrast(110%) brightness(200%)" ontimeupdate="elem('jump2').setAttribute('sm-xmax',this.currentTime);modul2.datas.line[0][0]=this.currentTime;modul2.datas.line[1][0]=this.currentTime;sm.plot.update(elem('plot'));"></video>
+                <sm-options sm-horizontal>
+                  <sm-option sm-onClick="elem('video').playbackRate = 0.25">slow motion</sm-option>
+                  <sm-option sm-selected sm-onClick="elem('video').playbackRate = 1.0;">normal</sm-option>
+                  <sm-option sm-onClick="elem('video').playbackRate = 5.0;">time lapse</sm-option>
+                </sm-options>
+              </sm-left>
+              <sm-right>
+                <sm-plot sm-name="plot" sm-cursor sm-xmin="0" sm-xmax="160" sm-xstep="20" sm-ymin="0" sm-ymax="240" sm-ystep="20" sm-aspectratio="0.9" sm-xname="Zeit" sm-yname="Sensorwiderstand" sm-xsymbol="<i>t</i>" sm-ysymbol="<i>R</i>" sm-xunit="s"
+                  sm-yunit="k&Omega;">
+                  <sm-data sm-name="jump2" sm-markers sm-points="0,42.2;5,42.1;10,42.3;12,196.4;15,180.4;20,158.8;25,142.3;30,130.4;35,119.3;40,110.5;45,104.4;50,98.8;55,94.6;60,90.5;65,86.9;70,84.6;75,82.8;80,79.8;85,77.9;90,76.3;95,74.9;100,73.9;105,72.4;110,71.4;115,70.5;120,69.7;125,68.9;130,68.2;135,67.5;140,66.9;145,66.4;150,65.8;155,65.4;160,64.9"
+                    sm-xmax="0"></sm-data>
+                  <sm-data sm-interpolate sm-name="line" sm-source="modul2.datas" sm-noMarks></sm-data>
+                </sm-plot>
+              </sm-right>
+            </sm-page>
+          </section>
+
+          <section sm-title="Calibration of gas sensors" sm-subsection>
+            <sm-page sm-title="Characteristic features for calibration 1/3">
+              <sm-stepBox sm-growing sm-top>
+                <sm-left>
+                  <div sm-name="slide1" sm-clap>
+                    <sm-step sm-name="intro">
+                      <p>As we mentioned earlier, the resistor-time curves can be used for calibration. But how does that work?</p>
+                      <p>On the right, the idea is illustrated by two (fictitious) resistance-time curves.</p>
+                    </sm-step>
+                    <div sm-name="introlist" sm-clap>
+                      <sm-step>
+                        <p sm-popup>In both measurements, the atmosphere around the gas sensor contained, besides air, a target gas with concentration <span style="color:green;font-weight:bold"><i>c</i><sub>1</sub></span> (<span style="color:green;font-weight:bold">green
+                            curve</span>) and <span style="color:darkmagenta;font-weight:bold"><i>c</i><sub>2</sub></span> (<span style="color:darkmagenta;font-weight:bold">purple curve</span>) respectively.</p>
+                      </sm-step>
+
+                      <sm-step>
+                        <p sm-popup>The resistance-time curves are different. In order to make this difference easier to understand, one does not consider the whole process.</p>
+                      </sm-step>
+
+                      <sm-step>
+                        <p sm-popup>Rather, one looks in the course for suitable characteristics, which one can express with individual numbers.</p>
+                      </sm-step>
+                    </div>
+                    <sm-step sm-hide="introlist">
+                      <sm-importantBox sm-popup>Note: The subject of <strong> calibration </strong> of a semiconductor gas sensor is to trace <strong> characteristics </strong> of resistance-time curves to the underlying concentration.</sm-importantBox>
+                    </sm-step>
+                  </div>
+                  <sm-step sm-hide="slide1">
+                    <p>For instance ...</p>
+                  </sm-step>
+                  <ul>
+                    <sm-step sm-reveal="schritt1">
+                      <li sm-popup>The (constant) resistance before temperature jump is greater for <span style="color: green; font-weight: bold">green</span> than for <span style="color: darkmagenta; font-weight: bold">purple</span>.</li>
+                    </sm-step>
+                    <sm-step sm-reveal="schritt2" sm-hide="schritt1">
+                      <li sm-popup>The resistance at green reaches a higher value due to the temperature jump.</li>
+                    </sm-step>
+                    <sm-step sm-reveal="schritt3" sm-hide="schritt2">
+                      <li sm-popup>In addition, the sudden increase in resistance is greater for <span style="color: green; font-weight: bold">green</span> than for <span style="color: darkmagenta; font-weight: bold">purple</span>.</li>
+                    </sm-step>
+                    <sm-step sm-reveal="schritt4" sm-hide="schritt3">
+                      <li sm-popup>Immediately after the temperature rise, the <span style="color: green; font-weight: bold">green</span> curve drops more slowly than the <span style="color: darkmagenta; font-weight: bold">purple</span> curve.</li>
+                    </sm-step>
+                    <sm-step sm-reveal="schritt5" sm-hide="schritt4">
+                      <li sm-popup>Toward the end, however, the <span style="color: green; font-weight: bold">green</span> curve drops faster than the <span style="color: darkmagenta; font-weight: bold"> purple </span>curve.</li>
+                    </sm-step>
+                  </ul>
+                  <sm-step>
+                    <p sm-popup>One could still find many more, if not quite so obvious features. To keep things simple, this module will focus on exactly <strong>four features</strong>.</p>
+                  </sm-step>
+                </sm-left>
+                <sm-right>
+                  <sm-image>
+                    <sm-content style="max-width:400px;width:100%">
+                      <img src="img/ausgleichsvorgang/graph.svg" width="100%">
+                      <img sm-name="schritt1" sm-fly-slow src="img/ausgleichsvorgang/schritt1.svg">
+                      <img sm-name="schritt2" sm-fly-slow src="img/ausgleichsvorgang/schritt2.svg">
+                      <img sm-name="schritt3" sm-fly-slow src="img/ausgleichsvorgang/schritt3.svg">
+                      <img sm-name="schritt4" sm-fly-slow src="img/ausgleichsvorgang/schritt4.svg">
+                      <img sm-name="schritt5" sm-fly-slow src="img/ausgleichsvorgang/schritt5.svg">
+                    </sm-content>
+                  </sm-image>
+                </sm-right>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Characteristic features for calibration 2/3">
+              <sm-stepBox sm-growing sm-top>
+                <sm-left sm-ratio="45%" style="padding-right:10px">
+                  <sm-step>
+                    <p>We want to take a closer look at the example from the video shown above. Of the total resistance-time curve, we only consider a short excerpt of 10 s duration (red area between 160 s and 170 s) following the temperature jump
+                      from 175 ° C to 100 ° C.</p>
+                    <p>The four features inside the <strong style="color:rgb(255, 157, 157)">red area</strong> are...</p>
+                  </sm-step>
+                  <sm-step sm-reveal="schritt1">
+                    <div sm-popup style="width:80%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px;display:inline-block">
+                      <div style="width:45%;text-align:right;display:inline-block">... the maximum <strong>MAX</strong></div> = R<sub>1</sub> = 156 k&Omega;
+                    </div>
+                  </sm-step>
+                  <sm-step sm-reveal="schritt2">
+                    <div sm-popup style="width:80%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px;display:inline-block">
+                      <div style="width:45%;text-align:right;display:inline-block">... the minimum <strong>MIN</strong></div> = R<sub>2</sub> = 128 k&Omega;
+                    </div>
+                  </sm-step>
+                  <sm-step sm-reveal="schritt3">
+                    <div sm-popup style="width:80%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px;display:inline-block">
+                      <div style="width:45%;text-align:right;display:inline-block">... the mean value <strong>MV</strong></div> = (R<sub>1</sub> + R<sub>2</sub>)/2 = 142 k&Omega;
+                    </div>
+                  </sm-step>
+                  <sm-step sm-reveal="schritt4" sm-hide="schritt1,schritt2,schritt3">
+                    <div sm-popup style="width:80%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px;display:inline-block">
+                      <div style="width:45%;text-align:right;display:inline-block">... the slope <strong>SL</strong></div> = (R<sub>2</sub> - R<sub>1</sub>)/10 s = -2,8 k&Omega;/s
+                    </div>
+                    <sm-toggleButton style="display:inline-block;margin-left:20px" sm-reveal="cue4">more</sm-toggleButton>
+                  </sm-step>
+                </sm-left>
+                <sm-right style="padding-left:30px">
+                  <sm-image>
+                    <sm-content style="width:100%;margin-left:15px">
+                      <img src="img/diagramme/messbeispiel1.svg" width="100%">
+                      <img sm-name="schritt1" sm-fly-slow src="img/diagramme/messbeispiel2.svg">
+                      <img sm-name="schritt2" sm-fly-slow src="img/diagramme/messbeispiel3.svg">
+                      <img sm-name="schritt3" sm-fly-slow src="img/diagramme/messbeispiel4.svg">
+                      <img sm-name="schritt4" sm-fly-slow src="img/diagramme/messbeispiel5.svg">
+                    </sm-content>
+                  </sm-image>
+                  <p sm-name="cue4" sm-popup sm-clap>
+                    In the period of <i>t</i><sub>1</sub> = 160 s to <i>t</i><sub>2</sub> = 170 s, within 10 s, the resistance decreases around 28 k&Omega;, within a second on average only 2.8 k&Omega;. Note: The mean slope of the resistance curve
+                    in the marked red area is neagtive. Therefore SL = -2,8 k&Omega;.
+                  </p>
+                </sm-right>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Characteristic features for calibration 3/3">
+
+              <sm-left sm-ratio="40%">
+                <sm-inputBox>
+                  <p>Determine the four characteristics of the resistance-time curve in the red marked interval using the cursor in the diagram:</p>
+
+                  <div style="width:100%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px">
+                    <div style="width:45%;text-align:right;display:inline-block">Maximum <strong>MAX</strong></div> = <input sm-name="max" class="sm-input" type="number" value="0" sm-condition="inRange" sm-conditionMin="155" sm-conditionMax="164"
+                      sm-feedback="wrong" style="width:50px"> k&Omega;
+                  </div>
+
+                  <div style="width:100%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px">
+                    <div style="width:45%;text-align:right;display:inline-block">Minimum <strong>MIN</strong></div> = <input sm-name="min" class="sm-input" type="number" value="0" sm-condition="inRange" sm-conditionMin="95" sm-conditionMax="101"
+                      sm-feedback="wrong" style="width:50px"> k&Omega;
+                  </div>
+
+                  <div style="width:100%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px">
+                    <div style="width:45%;text-align:right;display:inline-block">Mean value <strong>MV</strong></div> = <input sm-name="mw" class="sm-input" type="number" value="0" sm-condition="inRange" sm-conditionMin="125" sm-conditionMax="132"
+                      sm-feedback="wrong" style="width:50px"> k&Omega;
+                  </div>
+
+                  <div style="width:100%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px">
+                    <div style="width:45%;text-align:right;display:inline-block">Slope <strong>SL</strong></div> = <input sm-name="st" class="sm-input" type="number" value="0" sm-condition="inRange" sm-conditionMin="-2.2" sm-conditionMax="-1.8"
+                      sm-feedback="wrong" style="width:50px"> k&Omega;/s
+                  </div>
+
+                  <sm-toggleButton style="padding:10px;margin:10px;" sm-reveal="cue">Tipp</sm-toggleButton>
+
+                  <sm-feedback sm-name="wrong" sm-type="negative">Check your information! For the calculation of the mean and the slope, see the previous slide with <q>back</q> again.</sm-feedback>
+                  <sm-feedback sm-name="correct" sm-type="positive">Nice! Your information is correct. Click on <q>continue</q> to progress.</sm-feedback>
+                </sm-inputBox>
+
+                <div sm-clap sm-name="cue" sm-popup style="margin-top:10px">
+                  <div style="width:100%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px">
+                    <div style="width:45%;text-align:right;display:inline-block">Maximum <strong>MAX</strong></div> = R<sub>1</sub>
+                  </div>
+                  <div style="width:100%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px">
+                    <div style="width:45%;text-align:right;display:inline-block">Minimum <strong>MIN</strong></div> = R<sub>2</sub>
+                  </div>
+                  <div style="width:100%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px">
+                    <div style="width:45%;text-align:right;display:inline-block">Mean value <strong>MV</strong></div> = (R<sub>1</sub> + R<sub>2</sub>)/2
+                  </div>
+                  <div style="width:100%;background-color:#eee;border:1px solid gray;padding:10px;border-radius:5px;margin-bottom:15px">
+                    <div style="width:45%;text-align:right;display:inline-block">Slope <strong>SL</strong></div> = (R<sub>2</sub> - R<sub>1</sub>)/30 s
+                  </div>
+                </div>
+              </sm-left>
+              <sm-right>
+                <sm-plot style="margin-top:80px" sm-name="plot" sm-cursor sm-xmin="0" sm-xmax="150" sm-xstep="30" sm-ymin="0" sm-ymax="200" sm-ystep="50" sm-aspectratio="0.51" sm-xname="Zeit" sm-yname="Sensorwiderstand" sm-xsymbol="<i>t</i>"
+                  sm-ysymbol="<i>R</i>" sm-xunit="s" sm-yunit="k&Omega;">
+                  <img src="img/diagramme/messbeispiel.svg">
+                </sm-plot>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="Refinement of the conversion process">
+              <sm-left>
+                <sm-stepBox sm-growing sm-top sm-gray>
+                  <sm-step>
+                    <p style="margin-top:10px">With the knowledge of the last slides we supplement or refine the so far developed conversion process of the semiconductor gas sensor in four places.</p>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('temperatur').classList.add('hilight');" sm-onLeave="elem('temperatur').classList.remove('hilight');">
+                    <p sm-popup>Instead of a constant temperature, the sensor is operated with variable temperatures.</p>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('temperatur-geschwindigkeit').style.stroke='red';elem('temperatur-geschwindigkeit').style.strokeWidth='4px'" sm-onLeave="elem('temperatur-geschwindigkeit').style.stroke='gray';elem('temperatur-geschwindigkeit').style.strokeWidth='2px'"
+                    sm-reveal="descr-temperatur-geschwindigkeit">
+                    <p sm-popup>The velocity of electrons is affected by a <strong>immediate</strong> temperature change.</p>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('temperatur-bedeckung').style.stroke='red';elem('temperatur-bedeckung').style.strokeWidth='4px'" sm-onLeave="elem('temperatur-bedeckung').style.stroke='gray';elem('temperatur-bedeckung').style.strokeWidth='2px'"
+                    sm-reveal="descr-temperatur-bedeckung">
+                    <p sm-popup>The coverage of the sensor surface with oxygen and consequently the number of free charge carriers is influenced by a temperature change only <strong>gradual</strong>.</p>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('widerstand').classList.add('hilight')" sm-onLeave="elem('widerstand').classList.remove('hilight')">
+                    <p sm-popup>For a given gas type and concentration in the studied atmosphere, a temperature change leads to a characteristic course of the sensor resistance.</p>
+                  </sm-step>
+                </sm-stepBox>
+              </sm-left>
+              <sm-right>
+                <sm-canvas style="margin: 10px 0px;margin-top:70px">
+                  <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 0px 20px; margin: 0px 0px">
+                    <div sm-name="gasart" class="sm-textbox bordered magenta">gas type</div>
+                    <div sm-name="konzentration" class="sm-textbox bordered magenta">gas concentration</div>
+                    <div sm-name="temperatur" class="sm-textbox bordered magenta">course of the sensor temperature</div>
+                  </div>
+                  <div style="display:grid; grid-template-columns: 1fr 1fr; margin: 80px 50px; grid-gap: 50px 20px">
+                    <div sm-name="bedeckung" class="sm-textbox bordered blue">coverage the sensor surface with oxygen</div>
+                    <div></div>
+                    <div sm-name="anzahl" class="sm-textbox bordered blue">number of free electrons</div>
+                    <div sm-name="geschwindigkeit" class="sm-textbox bordered blue">velocity of the electrons</div>
+                  </div>
+                  <div sm-name="widerstand" style="margin: 0px auto; width: 200px" class="sm-textbox bordered orange">course of the sensor resistance</div>
+
+                  <sm-canvas-line sm-name="gasart-bedeckung" sm-from="gasart" sm-to="bedeckung" sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="konzentration-bedeckung" sm-from="konzentration" sm-to="bedeckung" sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="temperatur-bedeckung" sm-from="temperatur" sm-to="bedeckung" sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="temperatur-geschwindigkeit" sm-from="temperatur" sm-to="geschwindigkeit" sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="bedeckung-anzahl" sm-from="bedeckung" sm-to="anzahl" sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="anzahl-widerstand" sm-from="anzahl" sm-to="widerstand" sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="geschwindigkeit-widerstand" sm-from="geschwindigkeit" sm-to="widerstand" sm-anchors="south north"></sm-canvas-line>
+
+                  <sm-canvas-locate sm-between="temperatur bedeckung" sm-anchors="south north" sm-name="descr-temperatur-bedeckung" style="background-color:white;padding:2px">gradually</sm-canvas-locate>
+                  <sm-canvas-locate sm-name="descr-temperatur-geschwindigkeit" sm-between="temperatur geschwindigkeit" sm-anchors="south north" style="background-color:white;padding:2px">immediate</sm-canvas-locate>
+                </sm-canvas>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="Summary of the entire measuring process">
+              <sm-stepBox sm-top>
+                <sm-canvas>
+                  <div sm-name="diagram" style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 90px 20px; margin: 20px auto;max-width:700px">
+                    <div sm-name="untergrund" class="sm-textbox bordered magenta" style="grid-area:1/3/1/1;text-align:left;margin:-10px">
+                      <div style="line-height:60px">gas underground</div>
+                    </div>
+                    <div sm-name="gasart" class="sm-textbox bordered orange" style="grid-row:1;grid-column:2;z-index:1">concentration of a target gas</div>
+                    <div sm-name="temperatur" class="sm-textbox bordered magenta">variable temperature of the gas sensor</div>
+                    <div></div>
+                    <div sm-name="verlauf" class="sm-textbox bordered blue">course of the sensor resistance</div>
+                    <div></div>
+                    <div></div>
+                    <div sm-name="merkmale" class="sm-textbox bordered blue">characteristics of the course</div>
+                    <div></div>
+                    <div></div>
+                    <div sm-name="konzentration" class="sm-textbox bordered orange">concentration of the target gas</div>
+                  </div>
+
+                  <sm-canvas-line sm-name="untergrund-verlauf" sm-from="untergrund" sm-to="verlauf" sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="temperatur-verlauf" sm-from="temperatur" sm-to="verlauf" sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="verlauf-merkmale" sm-from="verlauf" sm-to="merkmale" sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="merkmale-konzentration" sm-from="merkmale" sm-to="konzentration" sm-anchors="south north"></sm-canvas-line>
+
+                  <sm-step sm-freetext sm-dim="10 left 20 top 30 width" sm-popup>Finally, we summarize the entire measurement process, including the calibration.</sm-step>
+                  <sm-step sm-freetext sm-dim="35 left 20 top 30 width" sm-popup sm-reveal="gasart">Our goal is to measure the <strong>concentration</strong> of a target gas.</sm-step>
+                  <sm-step sm-freetext sm-dim="20 left 20 top 30 width" sm-popup sm-reveal="untergrund">In general, the target gas is part of a gas mixture, also called <strong>underground</strong>. Frequently, ordinary air is the background of a
+                    target gas.</sm-step>
+                  <sm-step sm-freetext sm-dim="12 right 20 top 30 width" sm-popup sm-reveal="temperatur">The gas sensor is operated with a variable heating voltage <i>U</i> or <strong>temperature</strong> &#120599;.</sm-step>
+                  <sm-step sm-freetext sm-dim="62 right 20 top 30 width" sm-popup sm-reveal="verlauf,untergrund-verlauf,temperatur-verlauf">By changing the heating voltage one can extract <strong>resistance-time-curves</strong>:<br> The original
+                    measured concentration<i>c</i> is converted into a time-dependent electrical variable <i>R</i>(<i>t</i>).</sm-step>
+                  <sm-step sm-freetext sm-dim="62 left 50 top 30 width" sm-popup sm-reveal="merkmale,verlauf-merkmale">The resistance-time curves determine <strong>characteristics</strong> (e.g., maximum, minimum, average and slope).</sm-step>
+                  <sm-step sm-freetext sm-dim="62 right 85 top 30 width" sm-popup sm-reveal="konzentration,merkmale-konzentration">The features allow conclusions about the concentration <i>c</i> (<strong> calibration </strong>).</sm-step>
+                  <sm-step sm-freetext sm-dim="50 left 20 top 30 width -15 margin-left" sm-popup style="font-size:18pt;text-align:center;border:3px solid var(--tuk-blue)" sm-onDisplay="for(var i=0;i < 5;i++){elem(['diagram','untergrund-verlauf','temperatur-verlauf','verlauf-merkmale','merkmale-konzentration'][i]).style.opacity='.2';};"
+                    sm-onLeave="for(var i=0;i < 5;i++){elem(['diagram','untergrund-verlauf','temperatur-verlauf','verlauf-merkmale','merkmale-konzentration'][i]).style.opacity='1';};">
+                    We've used the term concentration more often. <br> What does <br> mean?
+                    <strong>Concentration</strong>?
+                  </sm-step>
+                </sm-canvas>
+              </sm-stepBox>
+            </sm-page>
+          </section>
+
+          <section sm-title="Concentration of gases" sm-subsection>
+            <sm-page sm-title="Measuring variable: concentration">
+              <sm-stepBox sm-growing sm-gray sm-top>
+                <sm-step>
+                  <p>We want to calibrate the sensor to the measured quantity concentration. In doing so, we have assumed that you have an intuitive idea of ​​the concept of concentration of a gas. It is important to specify the term.</p>
+                </sm-step>
+                <sm-columns sm-two>
+                  <sm-column>
+                    <sm-step>
+                      <p><strong>Concentration as mass fraction </strong> is very often found in the specification of limit values.</p>
+                      <p>For example, the WHO's recommended annual mean limit value of nitrogen dioxide (NO <sub>2</sub>) in the outside air is <strong> 40 μg / m³ </strong>. This information means that the total mass of all NO <sub> 2 </sub>
+                        molecules in 1 m³ (= 1000 l) of outdoor air may not exceed 40 μg per year.</p>
+                      <sm-image>
+                        <img src="img/modul2a/jahresmittel.png" width="300px">
+                      </sm-image>
+                    </sm-step>
+                  </sm-column>
+                  <sm-column>
+                    <sm-step>
+                      <p>In this module, however, we will report the concentrations as<strong>particles per volume</strong>.</p>
+                      <p>We consider e.g. the concentrations (as the proportion of particles) of the gases that make up dry air. Dry air consists almost exclusively of nitrogen (78%) and sorbent (21%). <br> Only about 1%, ie 1 of 100 particles,
+                        belongs to another gas (eg argon, helium, hydrogen or CO <sub>2</sub>).</p>
+                      <sm-image>
+                        <img src="img/modul2a/konzentration-masseanteil.svg" width="200px">
+                      </sm-image>
+                    </sm-step>
+                  </sm-column>
+                </sm-columns>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Definition of concentration 1/2">
+              <sm-left>
+                <sm-stepBox sm-growing sm-top>
+                  <sm-step>
+                    <p>We define the concentration of ethanol in a ethanol-air mixture:</p>
+                  </sm-step>
+                  <sm-step sm-reveal="zoom">
+                    <p sm-popup>The concentration of ethanol in the ethanol-air mixture (gas mixture for short) is <strong>1%</strong>, if in <strong>100 particles</strong> of the gas mixture there are on average <strong style="color: blue"> 99
+                        air particles </strong>and<strong style="color: red"> 1 ethanol particle </strong>.</p>
+                  </sm-step>
+                  <sm-step>
+                    <p sm-popup>
+                      The concentration <i>c</i> of ethanol (or a target gas) of a gas mixture in the volume <i>V</i> is thus defined by the ratio of the ethanol particle number (or the particle number of the target gas) to the total particle number
+                      in the gas mixture:
+                      <div style="border:1px solid #ccc;padding:10px">
+                        <table sm-popup style="margin:auto">
+                          <tr>
+                            <td><i>c</i> = </td>
+                            <td>
+                              <div style="float:left">
+                                <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">Particle number of the target gas in volume <i>V</i></div>
+                                <div style="font-weight:bold;text-align:center;">Total particle number in volume <i>V</i></div>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </p>
+                  </sm-step>
+                  <sm-step>
+                    <p sm-popup>
+                      If, on average in 100 particles of the gas mixture, one ethanol particle is present, the concentration of the ethanol in the gas mixture is:
+                      <table sm-popup>
+                        <tr>
+                          <td><i>c</i> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">1</div>
+                              <div style="font-weight:bold;text-align:center;">100</div>
+                            </div>
+                          </td>
+                          <td> = 0,01 = 1 % = 1 %</td>
+                        </tr>
+                      </table>
+                    </p>
+                  </sm-step>
+                </sm-stepBox>
+              </sm-left>
+              <sm-right>
+                <sm-image>
+                  <sm-content>
+                    <img src="img/modul2a/konzentration-definition-1.svg" width="350px">
+                    <img sm-popup sm-name="zoom" src="img/modul2a/konzentration-definition-2.svg">
+                  </sm-content>
+                </sm-image>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="Definition of concentration 2/2">
+              <sm-stepBox>
+                <sm-image>
+                  <sm-content style="max-width:720px;width:100%;height:480px">
+                    <img sm-name="rect1" src="img/modul2a/konzentration/rectangle-1.svg" width="720px" height="480px" sm-popup>
+                    <img sm-name="rect2" src="img/modul2a/konzentration/rectangle-2.svg" sm-popup>
+                    <img sm-name="rect3" src="img/modul2a/konzentration/rectangle-3.svg" sm-popup>
+                    <img sm-name="rect4" src="img/modul2a/konzentration/rectangle-4.svg" sm-popup>
+                    <img sm-name="rectwhole" src="img/modul2a/konzentration/rectangle-whole.svg" sm-popup>
+                    <img sm-name="volumen" src="img/modul2a/konzentration/volumen-gross.svg" sm-popup>
+                    <img sm-name="klein" src="img/modul2a/konzentration/volumen-klein.svg" style="transition:transform .8s ease;transform-origin:45% 45%;pointer-events:none;user-select:none;">
+
+
+                    <sm-step sm-freetext sm-dim="40 left 35 top 50 width" sm-popup sm-onDisplay="elem('klein').style.transform='scale(3) translate(0,-10%)'">
+                      This volume contains <strong style="color: red">5 ethanol particles</strong> out of <strong>100</strong> particles in the gas mixture (including <strong style="color: blue"> 95 air particles </strong> ).
+                    </sm-step>
+                    <sm-step sm-freetext sm-freetext sm-dim="40 left 35 top 50 width" sm-popup>
+                      Therefore, the gas mixture has the concentration
+                      <table>
+                        <tr>
+                          <td style="text-align:right"><i>c</i> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">5</div>
+                              <div style="font-weight:bold;text-align:center;"><span style="color:red">5</span> + <span style="color:blue">95</span></div>
+                            </div>
+                          </td>
+                          <td> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">5</div>
+                              <div style="font-weight:bold;text-align:center;">100</div>
+                            </div>
+                          </td>
+                          <td> = 5 %</td>
+                        </tr>
+                      </table>
+                    </sm-step>
+                    <sm-step sm-freetext sm-freetext sm-dim="40 left 35 top 50 width" sm-popup>
+                      In experiments, we are dealing with much larger volumes and thus with much larger numbers of particles.</sm-step>
+                    <sm-step sm-freetext sm-freetext sm-dim="40 left 35 top 50 width" sm-popup sm-onDisplay="elem('klein').style.transform='scale(3) translate(0,-10%)'">
+                      Does the concentration <i>c</i> change when we refer to other or larger volumes of the gas mixture?
+                    </sm-step>
+                    <sm-step sm-freetext sm-freetext sm-dim="10 left 30 top 50 width" sm-popup sm-onDisplay="elem('klein').style.transform='scale(1)'" sm-reveal="volumen">
+                      The volume considered so far is only one of many sub-volumes.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="10 left 25 top 70 width" sm-popup sm-reveal="rect1">
+                      In this sub-volume, <strong style="color: red"> 2 ethanol particles </strong> and <strong style="color: blue"> 92 air particles </strong> are included. That means the concentration is:<table>
+                        <tr>
+                          <td style="text-align:right"><i>c</i> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">2</div>
+                              <div style="font-weight:bold;text-align:center;"><span style="color:red">2</span> + <span style="color:blue">92</span></div>
+                            </div>
+                          </td>
+                          <td> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">2</div>
+                              <div style="font-weight:bold;text-align:center;">94</div>
+                            </div>
+                          </td>
+                          <td> &approx; 2 %</td>
+                        </tr>
+                      </table>
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="10 left 25 top 70 width" sm-popup sm-reveal="rect2" sm-hide="rect1">
+                      Although this volume <strong style="color: red"> contains only 5 ethanol particles </strong>, <strong style="color: blue">, there are 105 air particles </strong>. That means the concentration is <table>
+                        <tr>
+                          <td style="text-align:right"><i>c</i> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">5</div>
+                              <div style="font-weight:bold;text-align:center;"><span style="color:red">5</span> + <span style="color:blue">105</span></div>
+                            </div>
+                          </td>
+                          <td> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">5</div>
+                              <div style="font-weight:bold;text-align:center;">110</div>
+                            </div>
+                          </td>
+                          <td> &approx; 4 %</td>
+                        </tr>
+                      </table>
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="10 left 25 top 70 width" sm-popup sm-reveal="rect3" sm-hide="rect2">
+                      Here you can see <strong style="color: red"> 9 ethanol particles </strong> and <strong style="color: blue"> 91 air particles </strong>. Therefore the concentration is<table>
+                        <tr>
+                          <td style="text-align:right">c = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">9</div>
+                              <div style="font-weight:bold;text-align:center;"><span style="color:red">9</span> + <span style="color:blue">91</span></div>
+                            </div>
+                          </td>
+                          <td> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">9</div>
+                              <div style="font-weight:bold;text-align:center;">100</div>
+                            </div>
+                          </td>
+                          <td> = 9 %</td>
+                        </tr>
+                      </table>
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="10 left 25 top 70 width" sm-popup sm-reveal="rect4" sm-hide="rect3">
+                      This sub-volume, <strong style="color: red"> contains 0 ethanol particles </strong>and<strong style="color: blue"> 104 air particles</strong>. The concentration is<table>
+                        <tr>
+                          <td style="text-align:right">c = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">0</div>
+                              <div style="font-weight:bold;text-align:center;"><span style="color:red">0</span> + <span style="color:blue">104</span></div>
+                            </div>
+                          </td>
+                          <td> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">0</div>
+                              <div style="font-weight:bold;text-align:center;">104</div>
+                            </div>
+                          </td>
+                          <td> = 0 %</td>
+                        </tr>
+                      </table>
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="10 left 25 top 60 width" sm-popup sm-hide="rect4">
+                      The concentration may differ for different partial volumes. In our example, it varies by 5%, sometimes more and sometimes less.
+                      <sm-step sm-freetext sm-dim="10 left 25 top 60 width" sm-popup sm-hide="rect4" sm-reveal="rectwhole">
+                        In larger volumes, these deviations compensate on average. The large volume (100 times larger) contains about 500 ethanol particles and 9500 air particles:
+                        <table>
+                          <tr>
+                            <td style="text-align:right">c = </td>
+                            <td>
+                              <div style="float:left">
+                                <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">5&middot;100</div>
+                                <div style="font-weight:bold;text-align:center;"><span style="color:red">5&middot;100</span> + <span style="color:blue">95&middot;100</span></div>
+                              </div>
+                            </td>
+                            <td> = </td>
+                            <td>
+                              <div style="float:left">
+                                <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">500</div>
+                                <div style="font-weight:bold;text-align:center;"><span style="color:red">500</span> + <span style="color:blue">9500</span></div>
+                              </div>
+                            </td>
+                            <td> = </td>
+                            <td>
+                              <div style="float:left">
+                                <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">5</div>
+                                <div style="font-weight:bold;text-align:center;">100</div>
+                              </div>
+                            </td>
+                            <td> = 5 %</td>
+                          </tr>
+                        </table>
+                      </sm-step>
+                      <sm-step sm-freetext sm-dim="10 left 25 top 60 width" sm-popup>
+                        Therefore the concentration <i>c</i> of a gas mixture is independent of the considered volume.
+                      </sm-step>
+                  </sm-content>
+                </sm-image>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Units ppm and ppb">
+              <sm-left>
+                <sm-stepBox sm-growing sm-top>
+                  <div sm-name="collection1" sm-clap>
+                    <sm-step>
+                      <p>Considering air pollutants we will usually find much smaller concentrations than 1%. In these cases smaller units than percent are used. You surely know the next smaller unit of percent: <strong>per thousand</strong> (short
+                        &permil;).</p>
+                    </sm-step>
+                    <sm-step>
+                      <p sm-popup>Example: A drunk driver contains 1 &permil; alcohol. This means, on average, there is<strong style="color: red"> 1 alcohol particle </strong> (ethanol) and <strong style="color: blue"> 999 other particles</strong>
+                        in the blood. That means that the concentration of ethanol in the blood is:</p>
+                      <table sm-popup>
+                        <tr>
+                          <td>c = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">1</div>
+                              <div style="font-weight:bold;text-align:center;"><span style="color:red">1</span> + <span style="color:blue">999</span></div>
+                            </div>
+                          </td>
+                          <td> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">1</div>
+                              <div style="font-weight:bold;text-align:center;">1000</div>
+                            </div>
+                          </td>
+                          <td> = 0,001 = 1 &permil;</td>
+                        </tr>
+                      </table>
+                    </sm-step>
+                  </div>
+                  <div sm-name="collection2" sm-clap>
+                    <sm-step sm-reveal="blut2" sm-reveal="collection2" sm-hide="collection1">
+                      <p sm-popup>It gets even smaller: After 1000 times dilution of a drunk driver's blood sample (eg with water), <strong> 1,000,000 </strong> (one million) particles contain on average <strong style="color: red"> 1 alcohol
+                          particle </strong> and <strong style="color: blue"> 999,999 blood and water particles </strong>:</p>
+                      <table sm-popup>
+                        <tr>
+                          <td>c = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">1</div>
+                              <div style="font-weight:bold;text-align:center;"><span style="color:red">1</span> + <span style="color:blue">999.999</span></div>
+                            </div>
+                          </td>
+                          <td> = </td>
+                          <td>
+                            <div style="float:left">
+                              <div style="font-weight:bold;border-bottom:1px solid black;text-align:center;color:red">1</div>
+                              <div style="font-weight:bold;text-align:center;">1.000.000</div>
+                            </div>
+                          </td>
+                          <td> = 10<sup>-6</sup> = 1 ppm</td>
+                        </tr>
+                      </table>
+                      <p sm-popup>The unit <strong>ppm</strong> stands for <i>parts per million</i>.</p>
+                    </sm-step>
+                  </div>
+                  <sm-step sm-reveal="blut3" sm-hide="collection2">
+                    <p sm-popup>The already 1000-fold diluted blood is diluted once more 1000 times. The concentration of alcohol drops from 1 ppm to 0.001 ppm.</p>
+                  </sm-step>
+                  <sm-step>
+                    <p sm-popup>That means <strong>1.000.000.000</strong> (one billion) particles of the gas mixture contain on average <strong style="color:red">1 ethanol particle</strong> and <strong style="color:blue">999.999.999 blood and water
+                        particles.</strong>. Die alcohol concentration is<i>c</i> = 1 ppb.</p>
+                  </sm-step>
+                  <sm-step>
+                    <p sm-popup>The abbreviation <strong>ppb</strong> stands for <i>parts per billion</i></p>
+                  </sm-step>
+                </sm-stepBox>
+              </sm-left>
+              <sm-right>
+                <sm-image>
+                  <sm-content>
+                    <img src="img/modul2a/konzentration-blut-1.svg" width="450px">
+                    <img sm-name="blut2" src="img/modul2a/konzentration-blut-2.svg" sm-popup>
+                    <img sm-name="blut3" src="img/modul2a/konzentration-blut-3.svg" sm-popup>
+                  </sm-content>
+                </sm-image>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="Exercises about concentrations">
+              <div style="display:flex;margin-bottom:20px">
+                <sm-left sm-ratio="30%">
+                  <p><strong>Exercise 1.</strong><br>In one milliliter of gas mixture are 2.55&centerdot;10<sup>19</sup> air particles and 1.02&centerdot;10<sup>13</sup> of ethanol particles. Calculate the concentration of ethanol in ppb with an
+                    accuracy of two decimal places: <sm-toggleButton style="display:inline-block;margin-left:20px" sm-reveal="tipp-potenzen">Tip</sm-toggleButton>
+                  </p>
+                </sm-left>
+                <sm-right>
+                  <sm-inputBox style="margin-bottom:30px">
+                    c = <input sm-name="concentration" class="sm-input" type="number" sm-condition="inRange" sm-conditionMin="3.98" sm-conditionMax="4.01" sm-feedback="wrong"> ppb
+                    <sm-feedback sm-name="wrong" sm-type="negative">Check your solution again!</sm-feedback>
+                    <sm-feedback sm-name="correct" sm-type="positive">Very good! Your solution is correct!</sm-feedback>
+                  </sm-inputBox>
+                </sm-right>
+              </div>
+              <div sm-name="tipp-potenzen" style="display:flex;justify-content: center;margin-bottom:80px" sm-clap>
+                <img src="img/modul2a/potenzen-hilfe.svg" width="800px">
+              </div>
+              <div style="display:flex;margin-bottom:20px">
+                <sm-left sm-ratio="30%">
+                  <p><strong>Exercise 2.</strong><br>Convert the given concentration into smaller units!<sm-toggleButton style="display:inline-block;margin-left:20px" sm-reveal="tipp-umrechnung">Tip</sm-toggleButton>
+                  </p>
+                </sm-left>
+                <sm-right>
+                  <sm-inputBox style="margin-bottom:30px">
+                    c = 0,0012 % = <input sm-name="num-a-1" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="0.012" sm-feedback="wrong" style="width:100px"> &permil; = <input sm-name="num-a-2" class="sm-input" type="number"
+                      value="0" sm-condition="equal" sm-conditionValue="12" sm-feedback="wrong" style="width:100px"> ppm = <input sm-name="num-a-3" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="12000" sm-feedback="wrong"
+                      style="width:100px"> ppb
+                    <sm-feedback sm-name="wrong" sm-type="negative">Check your solution again!</sm-feedback>
+                    <sm-feedback sm-name="correct" sm-type="positive">Very good! Your solution is correct!</sm-feedback>
+                  </sm-inputBox>
+                </sm-right>
+              </div>
+              <div sm-name="tipp-umrechnung" style="display:flex;justify-content: center;margin-bottom:30px" sm-clap>
+                <img src="img/modul2a/hilfe-umrechnungKonzentrationen.svg" width="450px">
+              </div>
+              <div style="display:flex">
+                <sm-left sm-ratio="30%">
+                  <p><strong>Exercise 3.</strong><br>Convert the specified concentration into larger units!</p>
+                </sm-left>
+                <sm-right>
+                  <sm-inputBox>
+                    c = 3.120 ppb = <input sm-name="num-b-1" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="3.12" sm-feedback="wrong" style="width:100px"> ppm = <input sm-name="num-b-2" class="sm-input" type="number"
+                      value="0" sm-condition="equal" sm-conditionValue="0.00312" sm-feedback="wrong" style="width:100px"> &permil; = <input sm-name="num-b-3" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="0.000312"
+                      sm-feedback="wrong" style="width:100px"> %
+                    <sm-feedback sm-name="wrong" sm-type="negative">Check your solution again!</sm-feedback>
+                    <sm-feedback sm-name="correct" sm-type="positive">Very good! Your solution is correct!</sm-feedback>
+                  </sm-inputBox>
+                </sm-right>
+              </div>
+            </sm-page>
+          </section>
+
+          <section sm-title="3. Experimental basis">
+            <sm-page sm-title="Experimental setup">
+              <sm-stepBox class="sm-modul2-versuchsaufbau" sm-name="versuchsaufbau" sm-state="0">
+                <sm-image>
+                  <sm-content style="margin-top:110px;margin-bottom:0px">
+                    <img src="img/modul2a/hintergrund.svg" width="1200px">
+                    <img src="img/modul2a/farbe-a.svg" style="filter:saturate(0%) brightness(160%);transition:filter 3s ease" sm-name="farbe-a" class="sm-modul2-versuchsaufbau-farbe-a">
+                    <img src="img/modul2a/farbe-b.svg" style="filter:saturate(0%) brightness(160%);transition:filter 1s ease" sm-name="farbe-b">
+                    <img src="img/modul2a/vordergrund.svg">
+                    <img src="img/modul2a/markierung-a.svg" sm-name="markierung-a" sm-fly>
+                    <img src="img/modul2a/markierung-aa.svg" sm-name="markierung-aa" sm-fly>
+                    <img src="img/modul2a/markierung-b.svg" sm-name="markierung-b" sm-fly>
+                    <img src="img/modul2a/markierung-ba.svg" sm-name="markierung-ba" sm-fly>
+                    <img src="img/modul2a/markierung-bb.svg" sm-name="markierung-bb" sm-fly>
+                    <img src="img/modul2a/markierung-c.svg" sm-name="markierung-c" sm-fly>
+                    <img src="img/modul2a/markierung-d.svg" sm-name="markierung-d" sm-fly>
+                    <img src="img/modul2a/ethanol.svg" sm-name="ethanol" class="sm-modul2-versuchsaufbau-ethanol" sm-dim="9.8 left 79 top 10 width 8 height">
+                    <img src="img/modul2a/markierung-ab.svg" sm-name="markierung-ab" sm-fly>
+                    <img src="img/modul2a/pipette.svg" sm-name="pipette" class="sm-modul2-versuchsaufbau-pipette" sm-dim="13.28 left 42.5 top 3 width 40 height">
+
+
+                    <sm-step sm-freetext sm-dim="0 left -30 top" sm-popup>
+                      The experimental setup for the following experiment consists of four components:
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="-10 left -20 top" sm-popup sm-reveal="markierung-a">
+                      The <strong>gas storage chamber</strong> is there for several working groups.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="22 left 20 top 30 width" sm-popup sm-reveal="markierung-aa" sm-hide="markierung-a" sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','0')">
+                      The gas storage chamber contains a <strong>heating plate</strong>.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="22 left 20 top 30 width" sm-popup sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','0')">
+                      If the heating plate is drizzled with a liquid (here ethanol) and the heating plate is in operation, the liquid is vaporized and evenly distributed by a fan in the gas storage chamber.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="22 left 20 top 30 width" sm-popup sm-hide="markierung-aa" sm-reveal="ethanol,pipette" sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','1')">
+                      The hot plate has already been drizzled with ethanol. The ethanol is completely vaporized and distributed evenly throughout the chamber by the fan.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="15 left 40 top 30 width" sm-popup sm-reveal="markierung-ab" sm-hide="markierung-aa,pipette">
+                      With the help of a syringe, a small amount of the ethanol-air mixture can be extracted through a <strong>septum</strong> on the housing of the gas storage chamber.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="15 left 40 top 30 width" sm-popup>
+                      After extraction, the septum closes automatically.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="30 left 75 bottom 30 width" sm-popup sm-hide="markierung-ab" sm-reveal="markierung-b">
+                      The <strong>measuring chamber</strong> is only filled with air.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="10 left 30 top 30 width" sm-popup sm-hide="markierung-b" sm-reveal="markierung-bb">
+                      Via the <strong>septum</strong> an ethanol-air mixture can be transferred into the measuring chamber by means of a syringe.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="40 left 60 bottom 30 width" sm-popup sm-hide="markierung-bb" sm-reveal="markierung-ba">
+                      The measuring chamber houses a <strong>gas sensor</strong> (BME680).
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="50 left 60 bottom 30 width" sm-popup sm-hide="markierung-ba" sm-reveal="markierung-c">
+                      The gas sensor is supplied with a variable heating voltage <i>U</i> and controlled with a <strong>microcontroller</strong>.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="30 right 0 top 40 width" sm-popup sm-hide="markierung-c,markierung-ba" sm-reveal="markierung-d">
+                      The <strong>PC</strong> reads out the changing heating voltages <i>U</i>, as well as the sensor resistance <i>R</i> via the microcontroller.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="30 right 0 top 40 width" sm-popup>
+                      A software can record the resistance-time curves and determine their <strong>features</strong>. The software uses <strong>Machine Learning</strong> to create a mathematical model to associate the features with the corresponding
+                      concentration.
+                    </sm-step>
+                  </sm-content>
+                </sm-image>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Experimental procedure">
+              <sm-stepBox class="sm-modul2-versuchsaufbau2" sm-name="versuchsaufbau" sm-state="0">
+                <sm-image>
+                  <sm-content style="margin-top:110px;margin-bottom:110px">
+                    <img src="img/modul2a/hintergrund.svg" width="1200px">
+                    <img src="img/modul2a/farbe-a.svg" sm-name="farbe-a" class="sm-modul2-versuchsaufbau2-farbe-a">
+                    <img src="img/modul2a/farbe-b.svg" sm-name="farbe-b" class="sm-modul2-versuchsaufbau2-farbe-b">
+                    <img src="img/modul2a/vordergrund.svg">
+                    <img src="img/modul2a/graph-a.svg" sm-name="graph-a" sm-popup>
+                    <img src="img/modul2a/graph-b.svg" sm-name="graph-b" sm-popup>
+                    <img src="img/modul2a/graph-c.svg" sm-name="graph-c" sm-popup>
+                    <!--
+                                <img src="img/modul2a/farbe-b.svg" style="filter:saturate(0%) brightness(160%);transition:filter 1s ease" sm-name="farbe-b">
+                                <img src="img/modul2a/markierung-a.svg" sm-name="markierung-a" sm-fly>
+                                <img src="img/modul2a/markierung-aa.svg" sm-name="markierung-aa" sm-fly>
+                                <img src="img/modul2a/markierung-b.svg" sm-name="markierung-b" sm-fly>
+                                <img src="img/modul2a/markierung-ba.svg" sm-name="markierung-ba" sm-fly>
+                                <img src="img/modul2a/markierung-bb.svg" sm-name="markierung-bb" sm-fly>
+                                <img src="img/modul2a/markierung-c.svg" sm-name="markierung-c" sm-fly>
+                                <img src="img/modul2a/markierung-d.svg" sm-name="markierung-d" sm-fly>
+                                <img src="img/modul2a/ethanol.svg" sm-name="ethanol" id="sm-modul2-versuchsaufbau2-ethanol" sm-dim="9.8 left 79 top 10 width 8 height">
+                                <img src="img/modul2a/markierung-ab.svg" sm-name="markierung-ab" sm-fly>-->
+                    <div sm-name="spritze" class="sm-modul2-versuchsaufbau2-spritze">
+                      <div class="sm-modul2-versuchsaufbau2-spritze-gas"></div>
+                      <div sm-name="spritze-kolben" class="sm-modul2-versuchsaufbau2-spritze-kolben"></div>
+                    </div>
+
+
+                    <sm-step sm-freetext sm-dim="0 left -30 top" sm-popup>
+                      The experimental procedure consists of the following steps:
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="30 right -20 top 30 width" sm-popup sm-reveal="graph-a" sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','0')">
+                      First, a resistance-time curve for air without ethanol is recorded in the measuring chamber.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="30 right -20 top 30 width" sm-popup>
+                      The initial concentration of ethanol is <i>c</i><sub>0</sub> = 0 and the resistance-time curve is recorded for temperature jumps.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="20 left 20 top 30 width" sm-popup sm-reveal="spritze" sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','1')">
+                      A syringe is used to remove some of the ethanol-gas mixture from the gas storage chamber through the septum.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="70 right 50 top width 30" sm-popup sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','2')">
+                      The ethanol-gas mixture of the syringe is transferred into the measuring chamber by means of the other septum.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="40 left 10 top 30 width" sm-popup sm-hide="spritze">
+                      A concentration of <i>c</i><sub>1</sub> > <i>c</i><sub>0</sub> of ethanol is then present in the measuring chamber.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="30 right 0 top 30 width" sm-popup sm-reveal="graph-b">
+                      A new resistance-time curve for the ethanol concentration in the measuring chamber <i>c</i><sub>1</sub> (with the same temperature jumps) is recorded.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="60 right -10 top 30 width" sm-popup sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','2')">
+                      With the same step sequence the ethanol concentration in the measuring chamber is increased to <i>c</i><sub>2</sub>...
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="20 left 20 top 30 width" sm-popup sm-reveal="spritze" sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','3')">
+                      Some ethanol-air mixture is extracted from the gas storage chamber.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="70 right 50 top width 30" sm-popup sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','4')">
+                      The ethanol-air mixture is transferred into the measuring chamber.
+                    </sm-step>
+                    <sm-step sm-freetext sm-dim="30 right 0 top 30 width" sm-popup sm-reveal="graph-c">
+                      Again, a resistance-time-curve of the ethanol concentration <i>c</i><sub>2</sub> > <i>c</i><sub>1</sub> is recorded.
+                    </sm-step>
+                  </sm-content>
+                </sm-image>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Exercise - Determination of the concentration in the measuring chamber">
+              <sm-stepBox sm-top class="sm-modul2-versuchsaufbau2" sm-state="0" sm-name="versuchsaufbau" sm-growing>
+                <sm-left sm-ratio="40%">
+                  <sm-step sm-name="a" sm-clap>
+                    <p sm-popup>For our calibration, it is important to calculate the concentration in the measuring chamber after the etanol gas mixture has been transferred from the gas storage chamber to the measuring chamber with the syringe. We
+                      want to go through the calculations step by step.</p>
+                  </sm-step>
+                  <sm-step sm-hide="a" sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','0')">
+                    <p sm-popup>A drop of liquid ethanol (<i>V</i><sub>ethanol</sub> = 2 ml) was dripped onto the heating plate, causing it to vaporize and evenly distribute in the gas storage chamber (<i>V</i><sub>GMC</sub> = 62,500 ml,
+                      concentration <i>c</i><sub>GMC</sub>).</p>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','1')">
+                    <p sm-popup>A volume <i>V</i><sub>Syringe</sub> = 1 ml of the ethanol-air mixture is then removed with a syringe and transferred to the measuring chamber (<i>V</i><sub>MK</sub> = 1,250 ml).</p>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('versuchsaufbau').setAttribute('sm-state','2')">
+                    <p sm-popup>Further mixing with air dilutes the ethanol-air mixture in the measuring chamber to the concentration <i>c</i><sub>1</sub>.</p>
+                  </sm-step>
+                  <sm-step sm-reveal="schritt1">
+                    <p sm-popup>Also use the following data:</p>
+                    <div class="sm-exercise-data">
+                      <!--<div sm-popup><i>V</i><sub>Ethanol</sub> = 2 ml</div>
+                                <div sm-popup><i>V</i><sub>GVK</sub> = 62.500 ml</div>
+                                <div sm-popup><i>V</i><sub>Spritze</sub> = 1 ml</div>-->
+                      <div sm-popup><i>n</i><sub>Air</sub> = 2,55&centerdot;10<sup>19</sup> particles/ml</div>
+                      <div sm-popup><i>n</i><sub>Ethanol</sub> = 1,03&centerdot;10<sup>22</sup> particles/ml</div>
+                      <div sm-popup sm-name="n-luft-gvk"><i>N</i><sub>Air,GMC</sub> = 1,59&centerdot;10<sup>24</sup> particles</div>
+                      <div sm-popup sm-name="n-ethanol"><i>N</i><sub>Ethanol</sub> = 2,06&centerdot;10<sup>22</sup> particles</div>
+                      <div sm-popup sm-name="c-gvk"><i>c</i><sub>GMC</sub> = 12,7 ppm</div>
+                    </div>
+                  </sm-step>
+                </sm-left>
+                <sm-right>
+                  <sm-image>
+                    <sm-content style="margin-bottom:10px">
+                      <img src="img/modul2a/hintergrund.svg" width="800px">
+                      <img src="img/modul2a/farbe-a.svg" sm-name="farbe-a" class="sm-modul2-versuchsaufbau2-farbe-a">
+                      <img src="img/modul2a/farbe-b.svg" sm-name="farbe-b" class="sm-modul2-versuchsaufbau2-farbe-b">
+                      <img src="img/modul2a/vordergrund.svg">
+                      <div sm-name="spritze" class="sm-modul2-versuchsaufbau2-spritze">
+                        <div class="sm-modul2-versuchsaufbau2-spritze-gas"></div>
+                        <div sm-name="spritze-kolben" class="sm-modul2-versuchsaufbau2-spritze-kolben"></div>
+                      </div>
+                    </sm-content>
+                  </sm-image>
+                  <sm-inputBox sm-name="schritt1" sm-reveal="schritt2,n-luft-gvk" sm-notEditable sm-hide="schritt1" sm-popup>
+                    <p><strong>Step 1: <i>N</i><sub>Air,GMC</sub>:</strong> Calculation of the number of air particles <i>N</i><sub>Air,GMC</sub> in the gas mixing chamber:</p>
+                    <p><i>N</i><sub>Air,GMC</sub> = <i>n</i><sub>Air,GMC</sub> &centerdot; <i>V</i><sub>GMC</sub></p>
+                    <p><i>N</i><sub>Air,GMC</sub> = <input sm-name="nluftgvk" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="2.55" sm-feedback="wrong" style="width:100px;text-align: right" oninput="modul2.aufgabe.calcngvk()">&centerdot;10<sup><input
+                          sm-name="nluftgvk-exp" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="19" sm-feedback="wrong" style="width:50px;height:auto;font-size:11pt" oninput="modul2.aufgabe.calcngvk()"></sup>
+                      &centerdot; <input sm-name="nluftgvk-volume" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="62500" sm-feedback="wrong" style="width:100px;text-align: right" oninput="modul2.aufgabe.calcngvk()">
+                      ml = <span sm-name="nluftgvk-ergebnis"></span> particles</p>
+
+                    <sm-feedback sm-name="wrong" sm-negative>Check your solution!</sm-feedback>
+                    <sm-feedback sm-name="correct" sm-type="positive">Your solution is correct!</sm-feedback>
+                  </sm-inputBox>
+                  <sm-inputBox sm-name="schritt2" sm-reveal="schritt3,n-ethanol" sm-notEditable sm-hide="schritt2" sm-popup>
+                    <p><strong>Step 2: <i>N</i><sub>Ethanol</sub>:</strong> Calculation of the number of ethanol particles in 2 ml of liquid ethanol <i>N</i><sub>Ethanol</sub> in the gas mixing chamber.</p>
+                    <p><i>N</i><sub>Ethanol</sub> = <i>n</i><sub>Ethanol</sub> &centerdot; <i>V</i><sub>drop</sub></p>
+                    <p><i>N</i><sub>Ethanol</sub> = <input sm-name="nethanol" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="1.03" sm-feedback="wrong" style="width:100px;text-align: right" oninput="modul2.aufgabe.calcnethanol()">&centerdot;10<sup><input
+                          sm-name="nethanol-exp" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="22" sm-feedback="wrong" style="width:50px;height:auto;font-size:11pt" oninput="modul2.aufgabe.calcnethanol()"></sup>
+                      &centerdot; <input sm-name="nethanol-volume" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="2" sm-feedback="wrong" style="width:100px;text-align: right" oninput="modul2.aufgabe.calcnethanol()">
+                      ml = <span sm-name="nethanol-ergebnis"></span> particles</p>
+
+                    <sm-feedback sm-name="wrong" sm-negative>Check your solution!</sm-feedback>
+                    <sm-feedback sm-name="correct" sm-type="positive">Your solution is correct!</sm-feedback>
+                  </sm-inputBox>
+                  <sm-inputBox sm-name="schritt3" sm-reveal="schritt4,c-gvk" sm-notEditable sm-hide="schritt3" sm-popup>
+                    <p><strong>Step 3: <i>c</i><sub>GMC</sub>:</strong> Calculation of the concentration <i>c</i><sub>GMC</sub> of vaporized ethanol in the gas mixing chamber in &permil; and ppm.</p>
+                    <p><i>c</i><sub>GMC</sub> = <sm-frac>
+                        <sm-frac-d><i>N</i><sub>Ethanol</sub></sm-frac-d>
+                        <sm-frac-n><i>N</i><sub>Air,GMC</sub> + <i>N</i><sub>Ethanol</sub></sm-frac-n>
+                      </sm-frac> = <sm-frac>
+                        <sm-frac-d><span sm-name="nethanol-ergebnis2"></span> particles</sm-frac-d>
+                        <sm-frac-n>(<span sm-name="nluftgvk-ergebnis2"></span> + <span sm-name="nethanol-ergebnis3"></span>) particles</sm-frac-n>
+                      </sm-frac>
+                    </p>
+
+                    <p><i>c</i><sub>GMC</sub> = <span sm-name="ergebnis"></span> = <input sm-name="volpermill" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="12.7" sm-feedback="wrong" style="width:100px;text-align: right">
+                      &permil; = <input sm-name="ppm" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="12700" sm-feedback="wrong" style="width:100px;text-align: right"> ppm</p>
+
+                    <sm-feedback sm-name="wrong" sm-negative>Check your solution!</sm-feedback>
+                    <sm-feedback sm-name="correct" sm-type="positive">Your solution is correct!</sm-feedback>
+                  </sm-inputBox>
+                  <sm-question sm-name="schritt4" sm-reveal="schritt5" sm-type="check" sm-singlechoice sm-twocolumn sm-hide="schritt4" sm-popup>
+                    <p><strong>step 4: Equation of proportion:</strong> Calculation of the concentration <i>c</i><sub>1</sub> of vaporized ethanol in the measuring chamber.</p>
+                    <p>To calculate <i>c</i><sub>1</sub> it is not necessary to calculate the particles in the syringe and in the measuring chamber. The ethanol-air mixture from the small syringe can now be distributed into the much larger volume of
+                      the measuring chamber. This results in a simple ratio equation. What does the ratio look like?</p>
+                    <sm-item>
+                      <sm-frac>
+                        <sm-frac-d><i>c</i><sub>1</sub></sm-frac-d>
+                        <sm-frac-n><i>c</i><sub>GMC</sub></sm-frac-n>
+                      </sm-frac> = <sm-frac>
+                        <sm-frac-d><i>V</i><sub>Syringe</sub></sm-frac-d>
+                        <sm-frac-n><i>V</i><sub>MK</sub></sm-frac-n>
+                      </sm-frac>
+                    </sm-item>
+                    <sm-item>
+                      <sm-frac>
+                        <sm-frac-d><i>c</i><sub>1</sub></sm-frac-d>
+                        <sm-frac-n><i>c</i><sub>GMC</sub></sm-frac-n>
+                      </sm-frac> = <sm-frac>
+                        <sm-frac-d><i>V</i><sub>MC</sub></sm-frac-d>
+                        <sm-frac-n><i>V</i><sub>Syringe</sub></sm-frac-n>
+                      </sm-frac>
+                    </sm-item>
+                    <sm-item sm-correct>
+                      <sm-frac>
+                        <sm-frac-d><i>c</i><sub>1</sub></sm-frac-d>
+                        <sm-frac-n><i>c</i><sub>GMC</sub></sm-frac-n>
+                      </sm-frac> = <sm-frac>
+                        <sm-frac-d><i>V</i><sub>Syringe</sub></sm-frac-d>
+                        <sm-frac-n><i>V</i><sub>MC</sub> + <i>V</i><sub>Syringe</sub></sm-frac-n>
+                      </sm-frac>
+                    </sm-item>
+                    <sm-item>
+                      <sm-frac>
+                        <sm-frac-d><i>c</i><sub>1</sub></sm-frac-d>
+                        <sm-frac-n><i>c</i><sub>GMC</sub></sm-frac-n>
+                      </sm-frac> = <sm-frac>
+                        <sm-frac-d><i>V</i><sub>MC</sub> + <i>V</i><sub>Syringe</sub></sm-frac-d>
+                        <sm-frac-n></sm-frac-n><i>V</i><sub>Syringe</sub>
+                      </sm-frac>
+                    </sm-item>
+
+                    <sm-feedback sm-wrong>Check your solution!</sm-feedback>
+                    <sm-feedback sm-correct>Your solution is correct!</sm-feedback>
+                  </sm-question>
+                  <sm-inputBox sm-name="schritt5" sm-notEditable>
+                    <p><strong>Schritt 5: <i>c</i><sub>1</sub>:</strong> Calculation of the concentration <i>c</i><sub>1</sub> of vaporized ethanol in the measuring chamber in &permil; and ppm.</p>
+                    <p>For the dilution from <i>c</i><sub>0</sub> to <i>c</i><sub>1</sub> we will do the calculation for you:</p>
+                    <p><i>c</i><sub>1</sub> = <i>c</i><sub>0</sub> &centerdot; <sm-frac>
+                        <sm-frac-d><i>V</i><sub>Syringe</sub></sm-frac-d>
+                        <sm-frac-n><i>V</i><sub>MC</sub> + <i>V</i><sub>Syringe</sub></sm-frac-n>
+                      </sm-frac> = 1,27&centerdot;10<sup>-2</sup> &centerdot; <sm-frac>
+                        <sm-frac-d>1 ml</sm-frac-d>
+                        <sm-frac-n>1.250 ml + 1 ml</sm-frac-n>
+                      </sm-frac>
+                    </p>
+                    <p>Practice the conversion of the units again:</p>
+                    <p><i>c</i><sub>1</sub> &approx; 1,00&centerdot;10<sup>-5</sup> = <input sm-name="volpermill2" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="0.01" sm-feedback="wrong" style="width:100px;text-align: right">
+                      &permil; = <input sm-name="ppm2" class="sm-input" type="number" value="0" sm-condition="equal" sm-conditionValue="10" sm-feedback="wrong" style="width:100px;text-align: right"> ppm</p>
+
+                    <sm-feedback sm-name="wrong" sm-negative>Check your solution!</sm-feedback>
+                    <sm-feedback sm-name="correct" sm-type="positive">Your solution is correct!</sm-feedback>
+                  </sm-inputBox>
+                </sm-right>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Solution">
+              <sm-left>
+                <sm-question sm-type="check" sm-singlechoice sm-reveal="text,diagramm">
+                  <p>If 1 ml of the ethanol-air mixture is injected from the gas storage chamber into the measuring chamber, the ethanol concentration in the measuring chamber is <i>c</i><sub>1</sub> = 10 ppm.</p>
+                  <p>What about the ethanol concentration if another ml of the ethanol-air mixture is injected from the gas storage chamber into the measuring chamber?</p>
+                  <sm-item>The ethanol concentration remains almost the same.</sm-item>
+                  <sm-item sm-correct>The ethanol concentration increases by a further 10 ppm.</sm-item>
+                  <sm-item>The ethanol concentration increases by more than another 10 ppm.</sm-item>
+
+                  <sm-feedback sm-correct>Your solution is correct!</sm-feedback>
+                  <sm-feedback sm-wrong>Check your solution!</sm-feedback>
+                </sm-question>
+              </sm-left>
+              <sm-right>
+                <sm-image>
+                  <sm-content>
+                    <img src="img/modul2a/diagramm-konzentration.svg" width="400px" sm-name="diagramm" sm-popup>
+                  </sm-content>
+                </sm-image>
+                <p sm-name="text" style="margin-top:50px">The injected quantities of ethanol-air mixture and the ethanol concentration in the measuring chamber are approximately proportional to each other. Proportionality is shown in the diagram.</p>
+              </sm-right>
+            </sm-page>
+          </section>
+
+          <section sm-title="4. Calibration">
+            <sm-page sm-title="Software">
+              <sm-importantBox style="text-align:center;margin-top:100px">
+                <p>Now start the software for the first measurements!</p>
+
+                <p>Ask your supervisor for further information!</p>
+              </sm-importantBox>
+            </sm-page>
+
+            <sm-page sm-title="Data acquisition" sm-onEnter="modul2.training.load()">
+              <sm-stepBox sm-growing sm-top>
+                <sm-white sm-name="white"></sm-white>
+                <sm-step>
+                  <p>You have chosen the features <span sm-name="name-a"></span> and <span sm-name="name-b"></span>. The two diagrams show the values of the two characteristics as a function of the concentrations.</p>
+                  <sm-columns>
+                    <sm-column>
+                      <sm-plot sm-name="plot-a" sm-xmin="-10" sm-xmax="50" sm-xstep="10" sm-ymin="2365" sm-ymax="3804" sm-ystep="250" sm-aspectratio="0.6" sm-xname="Ethanol-Konzentration" sm-yname="Maximum" sm-xsymbol="<i>c</i>" sm-ysymbol="MAX"
+                        sm-xunit="ppm" sm-yunit="k&Omega;">
+                        <sm-data sm-name="data-a" sm-array="modul2.training.dataA" sm-markers></sm-data>
+                      </sm-plot>
+                    </sm-column>
+                    <sm-column>
+                      <sm-plot sm-name="plot-b" sm-xmin="-10" sm-xmax="50" sm-xstep="10" sm-ymin="1170" sm-ymax="1823" sm-ystep="250" sm-aspectratio="0.6" sm-xname="Ethanol-Konzentration" sm-yname="Minimum" sm-xsymbol="<i>c</i>" sm-ysymbol="MIN"
+                        sm-xunit="ppm" sm-yunit="k&Omega;">
+                        <sm-data sm-name="data-b" sm-array="modul2.training.dataB" sm-markers></sm-data>
+                      </sm-plot>
+                    </sm-column>
+                  </sm-columns>
+                </sm-step>
+                <sm-step>
+                  <p sm-popup>All data points are so-called <strong>training data</strong>. We use them to train a mathematical model that correlates characteristic values with concentrations. The better the training data you select,
+                    the better your calibration will be.</p>
+                </sm-step>
+                <sm-step sm-freetext sm-dim="50 left 20 top 40 width -15 margin-left" sm-popup style="font-size:18pt;text-align:center;border:3px solid var(--tuk-blue);z-index:11" sm-reveal="white">
+                  The question now is: How can concentrations and characteristic values be assigned?
+                </sm-step>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Assignment: Characteristic - Concentration 1/2">
+              <sm-stepBox sm-growing>
+                <sm-step>
+                  <p>The following methods, which are often used for calibration, are easy to understand:</p>
+                  <sm-importantBox>
+                    Search for a <strong>calibration curve</strong> that fits optimally to the training data (also called <strong>Best Fit</strong>).
+                  </sm-importantBox>
+                </sm-step>
+                <sm-step>
+                  <p>In the pictures below this is indicated for two fictitious connections. Note that <q>optimal fit</q> does not mean that the training data must lie exactly on the curve. It is an approximate solution.</p>
+                  <sm-images style="margin-bottom:50px">
+                    <sm-image>
+                      <sm-content>
+                        <img src="img/modul2a/kalibrierung/kurve-1-1.svg" width="300px">
+                        <img src="img/modul2a/kalibrierung/kurve-1-2.svg" sm-name="overlay1" sm-popup>
+                      </sm-content>
+                    </sm-image>
+                    <sm-image>
+                      <sm-content>
+                        <img src="img/modul2a/kalibrierung/kurve-2-1.svg" width="300px">
+                        <img src="img/modul2a/kalibrierung/kurve-2-2.svg" sm-name="overlay2" sm-popup>
+                      </sm-content>
+                    </sm-image>
+                  </sm-images>
+                </sm-step>
+                <sm-step sm-reveal="overlay1,overlay2">
+                  <p>For an unknown concentration, we could now determine the characteristics of the characteristics and assign the calibration curves to a concentration.</p>
+                </sm-step>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Assignment: Feature - Concentration 2/2">
+              <sm-stepBox sm-growing>
+                <sm-step>
+                  <sm-images style="margin-bottom:50px">
+                    <sm-image>
+                      <sm-image>
+                        <sm-content>
+                          <img src="img/modul2a/kalibrierung/kurve-3-1.svg" width="300px">
+                        </sm-content>
+                      </sm-image>
+                      <sm-image>
+                        <sm-content>
+                          <img src="img/modul2a/kalibrierung/kurve-1-1.svg" width="300px">
+                        </sm-content>
+                      </sm-image>
+                      <sm-image>
+                        <sm-content>
+                          <img src="img/modul2a/kalibrierung/kurve-2-1.svg" width="300px">
+                        </sm-content>
+                      </sm-image>
+                    </sm-image>
+                  </sm-images>
+                  <p>However, the application of the best-fit method is subject to a condition: At least in principle, we need to know the functional relationship between the variables.</p>
+                </sm-step>
+                <sm-step>
+                  <p>For example, with liquid thermometers, the relationship between temperature and head is <strong>linear</strong> (left picture). The other curves are based on a <strong>exponential</strong> (middle picture) and a <strong>square</strong>
+                    (right picture) relationship.</p>
+                </sm-step>
+                <sm-step>
+                  <p>However, characteristic expressions and concentrations can be related in very different ways and model equations generally cannot be given so easily.</p>
+                </sm-step>
+                <sm-step>
+                  <p>For the calibration we therefore choose another mathematical method.</p>
+                </sm-step>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Example 1/4">
+              <sm-stepBox sm-growing sm-top>
+                <sm-step>
+                  <p>How can concentrations and characteristic values be assigned?</p>
+                  <p>In order to understand this mathematical method, we briefly leave the concrete application case of the gas sensor and instead look at an illustrative example:</p>
+                </sm-step>
+                <sm-step>
+                  <p>Imagine a scientist trying to deduce the <strong>mass (M)</strong> of an adult human from the two characteristics <strong>body size (S)</strong> and <strong>waist circumference (W)</strong>.</p>
+                </sm-step>
+                <sm-canvas>
+                  <div sm-name="diagram" style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; grid-gap: 90px 20px; margin: 20px auto;max-width:1200px">
+                    <div sm-name="k" class="sm-textbox bordered blue">body size</div>
+                    <div sm-name="t" class="sm-textbox bordered magenta">waist circumference</div>
+                    <div sm-name="merkmale" style="text-align: center;font-weight: bold;padding:10px">features</div>
+                    <div sm-name="minimum" class="sm-textbox bordered blue">minimum</div>
+                    <div sm-name="steigung" class="sm-textbox bordered magenta">slope</div>
+                    <div sm-name="masse" class="sm-textbox bordered orange" style="grid-area: 2 / 1 / span 1 / span 2;">mass</div>
+                    <div sm-name="ziel" style="text-align: center;font-weight: bold;padding:10px">target</div>
+                    <div sm-name="konzentration" class="sm-textbox bordered orange" style="grid-area: 2 / 4 / span 1 / span 2;">concentration</div>
+                  </div>
+
+                  <sm-canvas-line sm-name="a-a" sm-from="k" sm-to="masse" sm-arrowto sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="a-b" sm-from="t" sm-to="masse" sm-arrowto sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="c" sm-from="merkmale" sm-to="ziel" sm-arrowto sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="b-a" sm-from="minimum" sm-to="konzentration" sm-arrowto sm-anchors="south north"></sm-canvas-line>
+                  <sm-canvas-line sm-name="b-b" sm-from="steigung" sm-to="konzentration" sm-arrowto sm-anchors="south north"></sm-canvas-line>
+                </sm-canvas>
+                <sm-step sm-reveal="ziel,masse,konzentration">
+                  <p>The mass as a target corresponds to the concentration.</p>
+                </sm-step>
+                <sm-step sm-reveal="k,t,minimum,steigung,a-a,a-b,b-a,b-b,c,merkmale">
+                  <p>Body size and waist circumference are to be regarded as the characteristics of the resistance-time curves.</p>
+                </sm-step>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Example 2/4">
+              <sm-stepBox sm-growing sm-top>
+                <sm-step>
+                  <p>Do you realize that the prediction of mass from only one of the two characteristics body size or waist circumference causes problems? So there are thick small or lean tall people.</p>
+                </sm-step>
+                <sm-left>
+                  <sm-step sm-reveal="bild">
+                    <p>Both types will probably weigh similarly much. But if only the waist circumference was chosen as a characteristic, in such a prediction the tall man would weigh less than the small one, because he is leaner.</p>
+                  </sm-step>
+                  <sm-step>
+                    <p>This also applies to the gas sensor: if we consider two characteristics of the resistance-time curve, we can improve the calibration.</p>
+                  </sm-step>
+                </sm-left>
+                <sm-right>
+                  <sm-image>
+                    <sm-content>
+                      <img sm-name="bild" src="img/modul2a/kalibrierung/untersetzt-schmaechtig.svg" width="350px">
+                    </sm-content>
+                  </sm-image>
+                </sm-right>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Example 3/4">
+              <sm-stepBox sm-growing sm-top>
+                <sm-left style="padding-right:50px">
+                  <sm-step>
+                    <p>For the prediction, the scientist is looking at a total of 100 people, 20 of whom weigh exactly 60 kg, 80 kg, 90 kg and 100 kg each, and also determines their body size and waist circumference. The average values of each
+                      weight class are compiled by the scientist in a table:</p>
+                    <table sm-innerlines style="width:100%" class="centerall">
+                      <tr style="border-top:none">
+                        <td style="border-top:none">mass [kg]</td>
+                        <td style="border-top:none">height [cm]</td>
+                        <td style="border-top:none">waist [cm]</td>
+                      </tr>
+                      <tr>
+                        <td>60</td>
+                        <td>159</td>
+                        <td>66</td>
+                      </tr>
+                      <tr>
+                        <td>70</td>
+                        <td>168</td>
+                        <td>70</td>
+                      </tr>
+                      <tr>
+                        <td>80</td>
+                        <td>178</td>
+                        <td>77</td>
+                      </tr>
+                      <tr>
+                        <td>90</td>
+                        <td>184</td>
+                        <td>87</td>
+                      </tr>
+                      <tr>
+                        <td>100</td>
+                        <td>187</td>
+                        <td>104</td>
+                      </tr>
+                    </table>
+                  </sm-step>
+                </sm-left>
+                <sm-right>
+                  <sm-step sm-reveal="diagramm1,diagramm2">
+                    <p>Graphically displayed, it looks like this:</p>
+                  </sm-step>
+                  <sm-images>
+                    <sm-image>
+                      <sm-content>
+                        <img sm-name="diagramm1" src="img/modul2a/kalibrierung/diagramm-1.svg" width="300px">
+                      </sm-content>
+                    </sm-image>
+                    <sm-image>
+                      <sm-content>
+                        <img sm-name="diagramm2" src="img/modul2a/kalibrierung/diagramm-2.svg" width="300px">
+                      </sm-content>
+                    </sm-image>
+                  </sm-images>
+                </sm-right>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Example 4/4">
+              <sm-stepBox sm-growing sm-top>
+                <sm-step>
+                  <p>Instead of determining two calibration curves, the scientist uses an approach with the following model equation:</p>
+                  <sm-importantBox style="text-align:center;font-size:32pt;padding:20px">
+                    <i style="color:orange">M</i> = <i>g</i><sub>1</sub>&centerdot;<i style="color:blue">W</i> + <i>g</i><sub>2</sub>&centerdot;<i style="color:darkmagenta">S</i>
+                  </sm-importantBox>
+                </sm-step>
+                <sm-step>
+                  <p>The mass <i style="color:orange">M</i> is determined here as <strong>weighted sum</strong> of body size <i style="color:blue">S</i> and waist circumference <i style="color:darkmagenta">W</i>. A piece of cake, provided we know
+                    the <strong>weights</strong>
+                    <i>g</i><sub>1</sub> and <i>g</i><sub>2</sub>. However, these are initially unknown and must be determined using the <q>training data</q> in an equation system.</p>
+                </sm-step>
+                <sm-step>
+                  <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 90px 20px;">
+                    <div style="padding-top:25px">
+                      <table sm-innerlines style="width:100%" class="centerall">
+                        <tr style="border-top:none">
+                          <td style="border-top:none">mass [kg]</td>
+                          <td style="border-top:none">body size [cm]</td>
+                          <td style="border-top:none">waist circumference [cm]</td>
+                        </tr>
+                        <tr>
+                          <td style="color:orange;position:relative;">60<img class="sm-rahmen" sm-name="a-rahmen" src="img/modul2a/rahmen.svg" sm-popup></td>
+                          <td style="color:blue;position:relative;">159<img class="sm-rahmen" sm-name="b-rahmen" src="img/modul2a/rahmen.svg" sm-popup></td>
+                          <td style="color:darkmagenta;position:relative;">66<img class="sm-rahmen" sm-name="c-rahmen" src="img/modul2a/rahmen.svg" sm-popup></td>
+                        </tr>
+                        <tr>
+                          <td style="color:orange">70</td>
+                          <td style="color:blue">168</td>
+                          <td style="color:darkmagenta">70</td>
+                        </tr>
+                        <tr>
+                          <td style="color:orange">80</td>
+                          <td style="color:blue">178</td>
+                          <td style="color:darkmagenta">77</td>
+                        </tr>
+                        <tr>
+                          <td style="color:orange">90</td>
+                          <td style="color:blue">184</td>
+                          <td style="color:darkmagenta">87</td>
+                        </tr>
+                        <tr>
+                          <td style="color:orange">100</td>
+                          <td style="color:blue">187</td>
+                          <td style="color:darkmagenta">104</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div style="text-align: center;padding-top:50px">
+                      <div sm-name="arrow" sm-popup>
+                        <p>Insert data in model equation</p>
+                        <p style="transform:scaleY(2) scaleX(5);">&xrarr;</p>
+                      </div>
+                    </div>
+                    <div style="text-align: center;">
+                      <sm-image>
+                        <sm-content>
+                          <img src="img/modul2a/gleichungssystem-empty.svg" width="300px">
+                          <img sm-name="a" src="img/modul2a/gleichungssystem-1.svg" sm-popup>
+                          <img sm-name="e1" src="img/modul2a/gleichungssystem-e1.svg" sm-popup>
+                          <img sm-name="b" src="img/modul2a/gleichungssystem-2.svg">
+                          <img sm-name="e2" src="img/modul2a/gleichungssystem-e2.svg" sm-popup>
+                          <img sm-name="c" src="img/modul2a/gleichungssystem-3.svg">
+                          <img sm-name="e3" src="img/modul2a/gleichungssystem-e3.svg" sm-popup>
+                          <img sm-name="d" src="img/modul2a/gleichungssystem-4.svg">
+                          <img sm-name="e" src="img/modul2a/gleichungssystem-5.svg" sm-popup>
+                        </sm-content>
+                      </sm-image>
+                      <p sm-name="solve" style="margin-top:5px">Solve the equation system</p>
+                    </div>
+                  </div>
+                </sm-step>
+                <sm-step sm-reveal="arrow,a"></sm-step>
+                <sm-step sm-reveal="a-rahmen,e1"></sm-step>
+                <sm-step sm-reveal="b" sm-hide="a,a-rahmen,e1"></sm-step>
+                <sm-step sm-reveal="b-rahmen,e2"></sm-step>
+                <sm-step sm-reveal="c" sm-hide="b,b-rahmen,e2"></sm-step>
+                <sm-step sm-reveal="c-rahmen,e3"></sm-step>
+                <sm-step sm-reveal="d" sm-hide="c,c-rahmen,e3"></sm-step>
+                <sm-step sm-reveal="e,solve"></sm-step>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Determination of weights 1/3">
+
+              <sm-stepBox>
+                <div class="sm-discussion-container" style="max-width:100%;text-align:center">
+                  <img src="img/diskussion/tafel-gross.svg" width="90%">
+                  <div class="sm-discussion-head" sm-fly-slow sm-looks="left" sm-name="head3" style="right:0%;top:100%">
+                    <div class="sm-discussion-mouth" sm-name="mouth3"></div>
+                  </div>
+                  <div class="sm-discussion-head" sm-fly-slow sm-looks="middle" sm-name="head2" style="left:45%;top:100%">
+                    <div class="sm-discussion-mouth" sm-name="mouth2"></div>
+                  </div>
+                  <div class="sm-discussion-head" sm-fly-slow sm-looks="right" sm-name="head1" style="left:0%;top:100%">
+                    <div class="sm-discussion-mouth" sm-name="mouth1"></div>
+                  </div>
+
+                  <sm-step></sm-step>
+                  <sm-step>
+                    <p>A piece of cake! Or is it not?</p>
+                  </sm-step>
+                  <sm-step sm-reveal="head1,head2,head3">
+                    <p>Follow the discussion of the three students.</p>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','left');elem('mouth2').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble think left leftpos">*doing math* ...</div>
+                    <div class="sm-discussion-speechbubble think right rightpos">*doing math* ...</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth1').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble think left middlepos">Why are they doing the math?</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','left');elem('mouth2').classList.remove('speaking');elem('mouth1').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble left leftpos">g<sub>1</sub> = 1 und g<sub>2</sub> = -1,5 solves equation I!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','right');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right rightpos">Huh? I have a completely different solution for equation I, namely g<sub>1</sub> = 0 and g<sub>2</sub> = 10/11</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','right');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','middle');elem('mouth2').classList.add('speaking');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left middlepos">You're both right. But use your solutions in equation II. Both do not fit!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','middle');elem('mouth2').classList.remove('speaking');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble think left leftpos">*doing math* ...</div>
+                    <div class="sm-discussion-speechbubble think right rightpos">*doing math* ...</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','left');elem('mouth2').classList.remove('speaking');elem('mouth1').classList.add('speaking');elem('mouth3').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left leftpos">Right. 168&centerdot;1-70&centerdot;1,5 equals 63 but not 70.</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right rightpos">And my result doesn't match either. But wait - I got it...</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','middle');elem('mouth2').classList.add('speaking');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.remove('speaking');">
+                    <div class="sm-discussion-speechbubble left middlepos">Well, I'm looking forward to that!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','right');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.add('speaking');">
+                    <div class="sm-discussion-speechbubble right rightpos">So with g<sub>1</sub> = -10 and g<sub>2</sub> = 25 both equations are true.</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','normal');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.remove('speaking');elem('mouth3').classList.add('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble think left leftpos">(Checks with a calculator) ...</div>
+                    <div class="sm-discussion-speechbubble right rightpos">I'm a genius!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','up');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','open');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.add('speaking');elem('mouth3').classList.remove('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble think left middlepos">They just don't get it!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','normal');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.add('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble right rightpos">So, am I right?</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','left');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','normal');elem('mouth1').classList.add('speaking');elem('mouth3').classList.remove('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble left leftpos">Yes, it works! Calculator test passed!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','mad');elem('mouth2').classList.add('speaking');elem('mouth2').setAttribute('sm-expr','normal');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.remove('speaking');elem('mouth3').classList.remove('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble left middlepos">And what about the other three equations?</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','right');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','left');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','smile');elem('mouth1').classList.add('speaking');elem('mouth3').classList.remove('speaking');elem('mouth3').classList.remove('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble left leftpos">Oh! That has to be true for <strong>all</strong> equations?!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','normal');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.remove('speaking');elem('mouth3').classList.add('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble right rightpos">Okay. That's challenging. But I'm almost there...</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','mad');elem('mouth2').classList.add('speaking');elem('mouth2').setAttribute('sm-expr','normal');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.add('speaking');elem('mouth3').classList.remove('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble left middlepos">Well, have fun!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','left');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','normal');elem('mouth1').classList.add('speaking');elem('mouth3').classList.remove('speaking');elem('mouth3').classList.remove('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble left leftpos">There is always a contradiction...</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','normal');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.remove('speaking');elem('mouth3').classList.add('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble right rightpos">Huh? You can't do that!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','right');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','mad');elem('mouth2').classList.add('speaking');elem('mouth2').setAttribute('sm-expr','normal');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.add('speaking');elem('mouth3').classList.remove('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble left middlepos">This can't even work! The system of equations is <strong>overdetermined</strong>!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','down');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','smile');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.remove('speaking');elem('mouth3').classList.add('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble right rightpos">Oh, yeah! More equations than variables!</div>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','right');elem('head3').setAttribute('sm-looks','down');elem('head2').setAttribute('sm-looks','left');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','smile');elem('mouth1').classList.add('speaking');elem('mouth3').classList.remove('speaking');elem('mouth3').classList.remove('speaking');"
+                    sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                    <div class="sm-discussion-speechbubble left leftpos">What now? There is no solution?</div>
+                  </sm-step>
+                </div>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Determination of weights 2/3">
+              <sm-stepBox sm-growing sm-top>
+                <sm-left sm-ratio="60%">
+                  <sm-step>
+                    <p>Apart from special cases, a system of equations with more equations than unknowns has no (exact) solution.</p>
+                  </sm-step>
+                  <sm-step sm-onDisplay="elem('head1').setAttribute('sm-looks','middle');elem('head2').setAttribute('sm-looks','middle');elem('head3').setAttribute('sm-looks','middle');elem('mouth1').classList.remove('speaking');elem('mouth2').classList.remove('speaking');elem('mouth3').classList.remove('speaking');">
+                    <sm-importantBox sm-popup>
+                      <strong>But:</strong> One can show that there is a <q> least wrong solution</q>. In other words, there is a <i>g</i><sub>1</sub><sup>*</sup> and <i>g</i></sub>2</sub><sup>
+                        <</sup> with which the predictions are still incorrect but the mean error for all equations is minimized. </sm-importantBox> </sm-step> </sm-left> <sm-right>
+                          <sm-image style="margin-top:50px">
+                            <sm-content>
+                              <img src="img/modul2a/gleichungssystem.svg" width="300px">
+                            </sm-content>
+                          </sm-image>
+                          </sm-right>
+
+                          <div class="sm-discussion-container" style="max-width:100%;text-align:center">
+                            <div class="sm-discussion-head" sm-looks="middle" sm-name="head3" style="right:0%;top:100%">
+                              <div class="sm-discussion-mouth" sm-name="mouth3"></div>
+                            </div>
+                            <div class="sm-discussion-head" sm-looks="middle" sm-name="head2" style="left:45%;top:100%">
+                              <div class="sm-discussion-mouth" sm-name="mouth2"></div>
+                            </div>
+                            <div class="sm-discussion-head" sm-looks="middle" sm-name="head1" style="left:0%;top:100%">
+                              <div class="sm-discussion-mouth" sm-name="mouth1"></div>
+                            </div>
+
+                            <sm-step sm-name="a" sm-onDisplay="elem('head1').setAttribute('sm-looks','right');elem('head2').setAttribute('sm-looks','left');elem('head3').setAttribute('sm-looks','left');elem('mouth1').classList.add('speaking');elem('mouth2').classList.remove('speaking');elem('mouth3').classList.remove('speaking');">
+                              <div class="sm-discussion-speechbubble left leftpos">What now? There is no solution?!.</div>
+                            </sm-step>
+                            <sm-step sm-name="b" sm-onDisplay="elem('head1').setAttribute('sm-looks','right');elem('head2').setAttribute('sm-looks','left');elem('head3').setAttribute('sm-looks','left');elem('mouth1').classList.remove('speaking');elem('mouth2').classList.add('speaking');elem('mouth3').classList.remove('speaking');">
+                              <div class="sm-discussion-speechbubble left middlepos">Well, yeah. There is no right solution, but a least wrong one.</div>
+                            </sm-step>
+                            <sm-step sm-hide="a,b" sm-onDisplay="elem('head1').setAttribute('sm-looks','right');elem('head3').setAttribute('sm-looks','left');elem('head2').setAttribute('sm-looks','right');elem('mouth2').classList.remove('speaking');elem('mouth2').setAttribute('sm-expr','smile');elem('mouth1').classList.remove('speaking');elem('mouth3').classList.remove('speaking');elem('mouth3').classList.add('speaking');"
+                              sm-onLeave="elem('mouth2').setAttribute('sm-expr','')">
+                              <div class="sm-discussion-speechbubble right rightpos">Cool!</div>
+                            </sm-step>
+                          </div>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Determination of weights 2/3" sm-onEnter="modul2.mth_training.setWeights(0.80,-1.4)">
+              <sm-left>
+                <sm-stepBox sm-growing sm-top sm-name="stepbox">
+                  <div sm-name="text" sm-clap>
+                    <sm-step>
+                      <p sm-popup>In the diagram the <strong>calibrated mass</strong> is plotted against the <strong>true mass</strong>.</p>
+                    </sm-step>
+                    <sm-step>
+                      <p sm-popup>The calibrated mass <i style="color:orange">M</i> is calculated with our model approach by</p>
+                      <p sm-popup>
+                        <i style="color:orange">M</i> = <i>g</i><sub>1</sub>&centerdot;<i style="color:blue">S</i> + <i>g</i><sub>2</sub>&centerdot;<i style="color:darkmagenta">W</i>
+                      </p>
+                      <p sm-popup>We have chosen the weights g<sub>1</sub> = 0.8 and g<sub>2</sub> = -1.4.</p>
+                    </sm-step>
+                    <sm-step sm-reveal="kreuz">
+                      <p sm-popup>Unfortunately the weights are still very bad. E.g. the model predicts mass of <span style="color:orange">4 kg</span> instead of <span style="color:orange">100 kg</span>, when given a body size of <span style="color:blue"><i>S</i>
+                          = 184 cm</span> and a waist circumference of <span style="color:darkmagenta"><i>W</i> = 104 cm</span>. Do the math yourself!</p>
+                    </sm-step>
+                    <sm-step sm-reveal="gerade" sm-hide="kreuz">
+                      <p sm-popup>The calibration is perfect if the training data are on the bisector of the angle. Here the calibrated mass is equal to the true mass.</p>
+                    </sm-step>
+                    <sm-step sm-reveal="bereich,toleranz">
+                      <p sm-popup>But as we have just learned: There is no perfect solution. We allow an error tolerance of &PlusMinus;10 kg, which should be sufficient for our purpose.</p>
+                    </sm-step>
+                  </div>
+                  <sm-step sm-name="regler-step" sm-hide="text,toleranz" sm-reveal="regler,exercise" sm-disablenext sm-onDisplay="elem('regler').classList.add('active');" sm-onLeave="elem('regler').classList.remove('active');">
+                    <p sm-name="exercise" sm-popup sm-clap>
+                      <strong>Exercise:</strong> Find weights g<sub>1</sub> and g<sub>2</sub>, so that all training data are within error tolerance. With the controls you can vary g<sub>1</sub> and g<sub>2</sub>.
+                      <p style="width:100%;text-align:center"><i>M</i> = (<span sm-name="g1-value">0,8</span>) &centerdot; <i>S</i> + (<span sm-name="g2-value">-1,4</span>) &centerdot; <i>W</i></p>
+                    </p>
+                  </sm-step>
+                  <sm-step sm-hide="exercise" sm-reveal="solution,error">
+                    <p sm-name="solution" sm-popup sm-clap>
+                      Good job! By the way, in the lower right corner you can see in which area (green) the error is small. The optimal (but not perfect) weights are g<sub>1</sub><sup>*</sup> = 0,03 and g<sub>2</sub><sup>*</sup> = 0,92.</p>
+                    </p>
+                  </sm-step>
+                  <div sm-name="regler" style="width:90%;display:grid;width:100%;position:relative;grid-template-columns: 90px auto; grid-template-rows: auto 90px;padding-left:20px;padding-right:20px">
+                    <div>
+                      <input class="sm-g-slider" sm-name="g2" type="range" min="-2" max="2" step="0.01" value="-1.4" orient="vertical" style="-webkit-appearance: slider-vertical;position: absolute;top: 7.5%;height: 67.5%;" oninput="modul2.mth_training.update()"></div>
+                    <div style="position:relative;"><img src="img/modul2a/gewichte/gewichte-achsen.svg" width="100%" style="display:block">
+                      <div style="display: block;position: absolute;top: 0;left: 0;margin: 10%;overflow: hidden;width: 80%;height: 80%;">
+                        <img sm-name="error" src="img/modul2a/gewichte/gewichte-fehler.svg" style="position:absolute;left:0;top:0;width:100%;height:100%;">
+                        <img sm-name="g2-line" style="display:block;position:absolute;left:0;top:0;width:100%;height:100%;" src="img/modul2a/gewichte/gewichte-g1.svg">
+                        <img sm-name="g1-line" style="display:block;position:absolute;left:0;top:0;width:100%;height:100%;" src="img/modul2a/gewichte/gewichte-g2.svg">
+                        <!--<div sm-name="g-display" style="display:block;position:absolute;bottom: 10px;left: 10px;">
+                                        g<sub>1</sub> = <span sm-name="g1-value">0,8</span><br>
+                                        g<sub>2</sub> = <span sm-name="g2-value">-1,4</span>
+                                    </div>-->
+                      </div>
+                    </div>
+                    <div></div>
+                    <div><input class="sm-g-slider" sm-name="g1" type="range" min="-2" max="2" step="0.01" value="0.8" oninput="modul2.mth_training.update()" style="width: 82.5%;margin-left: 8.5%;"></div>
+                  </div>
+                </sm-stepBox>
+              </sm-left>
+              <sm-right>
+                <div sm-name="plot" sm-xmax="120" sm-ymax="120" style="display:block;width:100%;position:relative;" class="sm-training">
+                  <img src="img/modul2a/gewichte/gitter.svg" width="100%" style="display:block">
+                  <img sm-name="bereich" sm-popup src="img/modul2a/gewichte/bereich-red.svg" style="position:absolute;left:0;top:0;width:100%;height:100%">
+                  <img sm-name="toleranz" sm-popup src="img/modul2a/gewichte/bereich-beschriftung.svg" style="position:absolute;left:0;top:0;width:100%;height:100%">
+                  <img sm-name="gerade" sm-popup src="img/modul2a/gewichte/gerade.svg" style="position:absolute;left:0;top:0;width:100%;height:100%">
+                  <img sm-name="kreuz" sm-popup src="img/modul2a/gewichte/kreuz.svg" style="position:absolute;left:0;top:0;width:100%;height:100%">
+                  <div style="display:block;position:absolute;width:80%;height:80%;margin:10%;top:0;left:0;overflow:hidden" sm-datas sm-name="datas">
+                    <div sm-name="data-0" class="sm-datapoint"></div>
+                    <div sm-name="data-1" class="sm-datapoint"></div>
+                    <div sm-name="data-2" class="sm-datapoint"></div>
+                    <div sm-name="data-3" class="sm-datapoint"></div>
+                    <div sm-name="data-4" class="sm-datapoint"></div>
+                  </div>
+                  <img style="display:block;position:absolute;width:100%;height:100%;left:0;top:0" src="img/modul2a/gewichte/achsen.svg" width="100%">
+                </div>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="Test of the least wrong solution">
+              <p><strong>Exercise:</strong> Determine your mass from your body size <i>S</i> (in cm) and waist circumference <i>W</i> (in cm) using the optimized model equation <p style="text-align:center;font-size:16pt"><i>M</i> = 0,03&centerdot;
+                  <i>S</i> + 0,92&centerdot;<i>W</i>.</p>
+                <P>Use tape measure and ruler. Enter your results into the table. If you do not know your mass, estimate it.</p>
+
+                <div style="display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr;width:100%;grid-template-rows: 1.2fr 1fr;text-align:center;">
+                  <div><strong>Group member</strong></div>
+                  <div><strong>Body size [cm]</strong></div>
+                  <div><strong>Waist circumference [cm]</strong></div>
+                  <div><strong>Calibrated mass [kg]</strong></div>
+                  <div><strong>True mass [kg]</strong></div>
+
+                  <div>1</div>
+                  <div><input type="number" value="0" sm-name="g-1" oninput="modul2.mth_training.probe('1')" /></div>
+                  <div><input type="number" value="0" sm-name="t-1" oninput="modul2.mth_training.probe('1')" /></div>
+                  <div sm-name="w-1">0,0</div>
+                  <div><input type="number" value="0" /></div>
+
+                  <div>2</div>
+                  <div><input type="number" value="0" sm-name="g-2" oninput="modul2.mth_training.probe('2')" /></div>
+                  <div><input type="number" value="0" sm-name="t-2" oninput="modul2.mth_training.probe('2')" /></div>
+                  <div sm-name="w-2">0,0</div>
+                  <div><input type="number" value="0" /></div>
+
+                  <div>3</div>
+                  <div><input type="number" value="0" sm-name="g-3" oninput="modul2.mth_training.probe('3')" /></div>
+                  <div><input type="number" value="0" sm-name="t-3" oninput="modul2.mth_training.probe('3')" /></div>
+                  <div sm-name="w-3">0,0</div>
+                  <div><input type="number" value="0" /></div>
+                </div>
+
+                <p>Are you satisfied with the prediction or was the deviation from your true mass too high? Name at least one idea how the mass calibration could be improved.</p>
+
+                <sm-inputBox sm-reveal="a">
+                  <textarea class="sm-input" placeholder="Begründung" sm-name="selfExplenation" sm-condition="sentences" sm-feedback="noExplenation" style="height:100px"></textarea>
+
+                  <sm-feedback sm-type="negative" sm-name="noExplenation">
+                    <p>Please enter an explanation!</p>
+                  </sm-feedback>
+                  <sm-feedback sm-type="positive" sm-name="correct">
+                    <p>Thank you for your explanation!</p>
+                  </sm-feedback>
+                </sm-inputBox>
+                <div sm-name="a">
+                  <p>You can compare your ideas with our suggestions for better calibration:</p>
+                  <ul>
+                    <li>More training data (e.g. not only data of 100, but 1000 people)</li>
+                    <li>More representative training data (including people weighing more than 100 kg)</li>
+                    <li>Integration of more or other characteristics (e.g. consider body fat percentage)</li>
+                  </ul>
+                </div>
+            </sm-page>
+
+            <sm-page sm-title="Calibration software">
+              <sm-stepBox>
+                <p>The calibration software works in principle similar to our example. We will explain roughly how the calibration software works:</p>
+                <sm-step></sm-step>
+                <sm-image>
+                  <sm-content>
+                    <img sm-name="a" src="img/modul2a/kalibrierung/map-1.svg" width="900px" sm-popup>
+                    <img sm-name="b" src="img/modul2a/kalibrierung/map-2.svg" sm-popup>
+                    <img sm-name="c" src="img/modul2a/kalibrierung/map-3.svg" sm-popup>
+                    <img sm-name="d" src="img/modul2a/kalibrierung/map-4.svg" sm-popup>
+                    <sm-step sm-reveal="a" sm-freetext sm-dim="-10 left 85 top 40 width" sm-popup>The software takes an approach to a model equation that is much more complex and contains many weight factors.</sm-step>
+                    <sm-step sm-reveal="b" sm-freetext sm-dim="42 left 20 top 40 width" sm-popup>The recorded training data is then inserted into the model equation. This results in an overdetermined system of equations with unknown weight factors.</sm-step>
+                    <sm-step sm-reveal="c" sm-freetext sm-dim="40 left 95 top 40 width" sm-popup>The software then uses several steps to search for optimal weight factors that lead to an optimal model equation.</sm-step>
+                    <sm-step sm-reveal="d" sm-freetext sm-dim="35 left 102 top 55 width" sm-popup>Finally, the features of unknown concentrations can be used in the optimized model equation to predict a concentration.</sm-step>
+                  </sm-content>
+                </sm-image>
+              </sm-stepBox>
+            </sm-page>
+
+            <sm-page sm-title="Training" sm-onEnter="modul2.training.initializeTraining()">
+              <sm-left>
+                <p>You already know this diagram from a moment ago. This time the calibrated concentration is plotted against the true concentration. The predictions are still quite wrong. A click on <q>Start training</q> will execute an algorithm
+                  that automatically searches for optimal models and the least wrong solution. The result is getting closer and closer to this solution.</p>
+                <button sm-name="button-start" onclick="modul2.training.startTraining()">Start training</button>
+                <p>Step: <span sm-name="steps"></span>/10000</p>
+                <p style="font-weight:bold">Best error tolerance: <span sm-name="error"></span>%</p>
+                <p><span sm-name="range-1"></span></p>
+                <p><span sm-name="range-2"></span></p>
+              </sm-left>
+              <sm-right>
+                <div sm-name="plot" sm-xmax="120" sm-ymax="120" style="display:block;width:100%;position:relative;" class="sm-training">
+                  <img src="img/modul2a/training/gitter.svg" width="100%" style="display:block">
+                  <img sm-name="gerade" sm-popup src="img/modul2a/gewichte/gerade.svg" style="position:absolute;left:0;top:0;width:100%;height:100%">
+                  <div style="display:block;position:absolute;width:80%;height:80%;margin:10%;top:0;left:0;overflow:hidden" sm-datas sm-name="datas">
+                  </div>
+                  <img style="display:block;position:absolute;width:100%;height:100%;left:0;top:0" src="img/modul2a/training/achsen.svg" width="100%">
+                </div>
+              </sm-right>
+            </sm-page>
+
+            <sm-page sm-title="Exercises" sm-onEnter="modul2.training.initializeExercise()">
+              <p>Congratulations! You calibrated the sensor. In conclusion two more tasks:</p>
+
+              <sm-left style="padding-right:10px">
+                <sm-commandBox sm-reveal="vorhersage">
+                  <p>How good is your model compared to other groups? Compare the number of steps it took to go below the error tolerance. What could be the reasons for possible differences?</p>
+                </sm-commandBox>
+              </sm-left>
+
+              <sm-right>
+                <div sm-name="vorhersage" style="margin-top:11px">
+                  <p>Check the calibration at an unknown concentration:</p>
+                  <ul>
+                    <li>Open your measuring chamber to remove the ethanol-air mixture you used for calibration.</li>
+                    <li>Close the measuring chamber again and insert the contents of a syringe (you get it from the supervisor) into it.</li>
+                    <li>Records the resistance-time curve with the calibration software and determines the features. The software automatically displays the ethanol concentration. Now ask the supervisor what was the real concentration.</li>
+                    <li>Enter the features in the two input fields on this page and click <q>predict</q>. The program uses your model for the prediction.</li>
+                  </ul>
+                  <sm-inputGrid>
+                    <sm-row>
+                      <sm-title sm-name="title-a"></sm-title><input type="number" sm-name="value-a">
+                    </sm-row>
+                    <sm-row>
+                      <sm-title sm-name="title-b"></sm-title><input type="number" sm-name="value-b">
+                    </sm-row>
+                    <sm-row>
+                      <button style="max-width:100%" onclick="modul2.training.doPrediction()">predict</button>
+                    </sm-row>
+                    <sm-row>
+                      <sm-title>concentration in ppm</sm-title><input disabled type="number" value="" sm-name="prediction">
+                    </sm-row>
+                  </sm-inputGrid>
+                </div>
+              </sm-right>
+
+            </sm-page>
+          </section>
+        </div>
+      </div>
+
+      <div id="sm-sidebar" class="retracted">
+        <div id="sm-sidebarbutton" onclick="sm.navigation.toggle()"></div>
+        <div id="sm-navigation">
+        </div>
+      </div>
+
+      <sm-tooltip id="sm-nextbutton-tooltip" sm-element="sm-nextbutton">Click on <q>continue</q> to get to the next slide.</sm-tooltip>
+      <sm-tooltip id="sm-nextbutton-inaktive-tooltip" sm-element="sm-nextbutton">&darr; This is the <q>continue</q> button.</sm-tooltip>
+      <sm-tooltip id="sm-menu-tooltip" sm-element="sm-sidebarbutton">&larr; Click here to open or close the menu.</sm-tooltip>
+    </div>
+
+
+    <footer id="sm-footer" class="retracted">
+
+      <div id="sm-footer-buttoncontainer">
+        <div id="sm-prevbutton">back</div>
+        <div id="sm-nextbutton">continue</div>
+        <!--
+            <div id="sm-footer-centeredButtonContainer">
+                <div id="sm-toggleNavigationButton" class="hidden"></div>
+            </div>-->
+      </div>
+
+      <!--
+        <div id="sm-navigationContainer">
+        </div>!-->
+
+    </footer>
+
+
+
+  </body>
+
+</html>

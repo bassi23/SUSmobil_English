@@ -1,0 +1,166 @@
+sm-plot {
+    position: relative;
+    display: block;
+    padding: 10px;
+}
+sm-plot .main {
+    display: block;
+    overflow: visible;
+}
+
+sm-plot > .container {
+    display: grid;
+    grid-template-columns: 90px auto;
+    grid-template-rows: auto 70px;
+}
+sm-plot > .container > .plotContainer {
+    position: relative;
+    grid-area: 2 / 2 / 1 / 2;
+    cursor: none;
+    z-index: 1;
+}
+sm-plot > .container > .xContainer {
+    grid-area: 2 / 2 / 2 / 2;
+    position: relative;
+}
+sm-plot > .container > .yContainer {
+    grid-area: 1 / 1 / 1 / 1;
+    position: relative;
+}
+sm-plot > .container > .yContainer > .name {
+    position: absolute;
+    display: block;
+    left: 15px;
+    top: 50%;
+    width: max-content;
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+sm-plot > .container > .xContainer > .name {
+    position: absolute;
+    display: block;
+    left: 50%;
+    top: 55px;
+    width: max-content;
+    transform: translate(-50%, -50%);    
+}
+
+sm-plot > .container > .yContainer > .tick {
+    /*display: block;*/
+    position: absolute;
+    left: 60px;
+    transform: translate(-50%, -50%);
+}
+sm-plot > .container > .xContainer > .tick {
+    display: block;
+    position: absolute;
+    top: 20px;
+    transform: translate(-50%, -50%);
+}
+
+sm-plot.small > .container > .xContainer > .tick:nth-child(even) {
+    display: none;
+}
+
+sm-plot[sm-nocursor] .infoBox {
+    display: none;
+}
+sm-plot .infoBox {
+    display: block;
+    position: absolute;
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid gray;
+    width: 150px;
+    height: auto;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -150%);
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+sm-plot .infoBox > .x, sm-plot .infoBox > .y {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+sm-plot div.cursor {
+    display: block;
+    position: absolute;
+    background-image: url('../img/plot-cursor.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 50px;
+    height: 50px;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+}
+sm-plot path.cursor {
+    stroke: gray;
+    stroke-width: 0.25pt;
+    fill: none;
+    pointer-events: none;
+}
+sm-plot .plotContainer:not(:hover) .cursor, sm-plot .plotContainer:not(:hover) .infoBox {
+    display: none;
+}
+sm-plot img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    pointer-events: none;
+}
+
+sm-plot .datas > g > path {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.5pt;
+}
+sm-plot .datas > g > path:hover {
+    stroke: blue;
+}
+sm-plot .datas > g:nth-child(1) > circle {
+    fill: var(--tuk-blue);
+}
+sm-plot .datas > g:nth-child(2) > circle {
+    fill: var(--tuk-red);
+}
+sm-plot .datas > g:nth-child(3) > circle {
+    fill: olive;
+}
+sm-plot .datas > g:nth-child(4) > circle {
+    fill: slateblue;
+}
+sm-plot .datas circle.hidden {
+    display: none;
+}
+
+
+
+sm-plot .view {
+    display: block;
+}
+sm-plot .grid > path {
+    stroke: #ddd;
+    stroke-width: 0.1pt;
+}
+sm-plot .axis > path {
+    stroke: black;
+    stroke-width: 0.2pt;
+    fill: none;
+}
+
+
+
+sm-plot.logview .linear {
+    display: none;
+}
+sm-plot:not(.logview) .log {
+    display: none;
+}

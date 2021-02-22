@@ -1,0 +1,792 @@
+/* THERMOMETER */
+
+.sm-thermometer-container {
+    position: relative;
+    height: 500px;
+}
+.sm-thermometer {
+    position: absolute;
+    top: 30px;
+    width: 100px;
+    height: 400px;
+    background-image: url('../img/thermometer/thermometer.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    transform: translateX(-50%);
+    user-select: none;
+}
+.sm-thermometer-inputcontainer {
+    position: absolute;
+    background-image: url('../img/thermometer/skala.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 100px;
+    height: 400px;
+    left: 30%;
+    top: 45px;
+}
+.sm-thermometer-skala {
+    position: absolute;
+    background-image: url('../img/thermometer/temperaturskala.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 39% center;
+    width: 150px;
+    height: 400px;
+    left: 0;
+    top: 0;
+}
+.sm-thermometer-diagramm {
+    position: absolute;
+    left: 0;
+    top: 45px;
+    background-image: url('../img/thermometer/diagramm.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 0% center;
+    width: 500px;
+    height: 400px;
+}
+.sm-thermometer-vline {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+    height: 90%;
+    border-left: 2px dashed gray;
+    transition: left 3s ease;
+}
+.sm-thermometer-bottich {
+    position: absolute;
+    width: 100px;
+    height: 150px;
+    background-image: url('../img/thermometer/bottich-wasser.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    bottom: 0px;
+}
+.sm-thermometer-fluid {
+    position: absolute;
+    background-color: #042bff;
+    bottom: 10%;
+    width: 9%;
+    height: 1%;
+    transition: height 3s ease;
+}
+.sm-thermometer-line {
+    position: absolute;
+    bottom: 15%;
+    left: 0%;
+    width: 100%;
+    height: 0px;
+    border-top: 2px dashed #aaa;
+    transition: bottom 3s ease;
+}
+.sm-thermometer-container:not(.fang) .sm-thermometer-line, .sm-thermometer-container.dragging .sm-thermometer-line,
+.sm-thermometer-container:not(.fang) .sm-thermometer-vline, .sm-thermometer-container.dragging .sm-thermometer-vline {
+    visibility: hidden;
+}
+
+
+
+/* DISKUSSION */
+
+.sm-discussion-container {
+    position: relative;
+    display: block;
+    height: 400px;
+    max-width: 750px;
+    width: 100%;
+    margin: auto;
+}
+.sm-discussion-board {
+    position: absolute;
+    display: block;
+    top: 220px;
+    right: 130px;
+    width: 270px;
+    height: 170px;
+    background-image: url('../img/diskussion/tafel.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+.sm-discussion-head {
+    position: absolute;
+    top: 250px;
+    width: 120px;
+    height: 120px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+.sm-discussion-head.left {
+    left: 50px;
+    background-image: url('../img/diskussion/gesicht-rechts.svg');
+}
+.sm-discussion-head.right {
+    width: 200px;
+    height: 200px;
+    right: 50px;
+    top: 230px;
+    background-image: url('../img/diskussion/gesicht-links.svg');
+}
+.sm-discussion-head[sm-looks="left"] {
+    background-image: url('../img/diskussion/gesicht-schautlinks.svg');
+}
+.sm-discussion-head[sm-looks="right"] {
+    background-image: url('../img/diskussion/gesicht-schautrechts.svg');
+}
+.sm-discussion-head[sm-looks="middle"] {
+    background-image: url('../img/diskussion/gesicht-schautmitte.svg');
+}
+.sm-discussion-head[sm-looks="down"] {
+    background-image: url('../img/diskussion/gesicht-schautunten.svg');
+}
+.sm-discussion-head[sm-looks="up"] {
+    background-image: url('../img/diskussion/gesicht-schautoben.svg');
+}
+.sm-discussion-head[sm-looks="mad"] {
+    background-image: url('../img/diskussion/gesicht-schautverzweifelt.svg');
+}
+
+.sm-discussion-speechbubble {
+    position: absolute;
+    display: block;
+    width: 400px;
+    background-color:white;
+    border: 3px solid gray;
+    text-align: center;
+    bottom: 200px;
+    padding: 10px;
+    border-radius: 40px;
+    font-size: 16pt;
+    font-family: 'Comic Sans MS', 'VERDANA', 'ARIAL', 'HELVETICA';
+    animation: sm-discussion-speechbubble .3s ease;
+    animation-iteration-count: 1;
+}
+@keyframes sm-discussion-speechbubble {
+    0% { transform: scale(0.4); opacity: 0; }
+    40% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.sm-discussion-speechbubble::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 80px;
+    top: 100%;
+    margin-top: -0.25px;
+    background-image: url('../img/diskussion/tip.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+.sm-discussion-speechbubble.think::after {
+    background-image: url('../img/diskussion/think-tip.svg');
+}
+
+.sm-discussion-speechbubble.left::after {
+    left: 20px;
+}
+.sm-discussion-speechbubble.right::after {
+    right: 20px;
+    transform: scaleX(-1);
+}
+.sm-discussion-speechbubble.left {
+    left: 150px;
+}
+.sm-discussion-speechbubble.right {
+    right: 150px;
+}
+.sm-discussion-speechbubble.leftpos {
+    left: 6%;
+    bottom: 8%;
+}
+.sm-discussion-speechbubble.middlepos {
+    left: 52%;
+    bottom: 8%;
+}
+.sm-discussion-speechbubble.rightpos {
+    right: 8%;
+    bottom: 8%;
+}
+.sm-discussion-speechbubble.think {
+    bottom: 20%;
+}
+
+
+
+.sm-discussion-mouth {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/diskussion/ruhig.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+.sm-discussion-head.right .sm-discussion-mouth {
+    width: 120px;
+    height: 120px;
+    left: 36%;
+    top: 20%;
+}
+
+.sm-discussion-mouth[sm-expr="smile"] {
+    background-image: url('../img/diskussion/ruhig.svg');
+}
+.sm-discussion-mouth[sm-expr="normal"] {
+    background-image: url('../img/diskussion/normal.svg');
+}
+.sm-discussion-mouth[sm-expr="open"] {
+    background-image: url('../img/diskussion/auf.svg');
+}
+
+.sm-discussion-mouth.speaking {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    animation: sm-discussion-speaking .18s step-end;
+    animation-iteration-count: 5;
+    animation-fill-mode: initial;
+}
+@keyframes sm-discussion-speaking {
+    0% { background-image: url('../img/diskussion/spricht.svg'); }
+    50% { background-image: url('../img/diskussion/ruhig.svg'); }
+}
+
+
+
+
+/* DIAGRAMM ZUR WANDLUNG */
+
+.sm-wandlungdiagramm-text {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 13pt;
+    line-height: 100%;
+    text-align: left!important;
+    animation: sm-discussion-speechbubble .3s ease;
+    animation-iteration-count: 1;
+    border: 2px solid gray;
+    border-radius: 10px;
+    background-color: white;
+}
+
+
+
+/* SMARTPHONE-ANIMATIONEN */
+
+@keyframes sm-smartphone-rotate {
+    0% { transform: rotate(0deg); }
+    30% { transform: rotate(0deg); }
+    60% { transform: rotate(-90deg); }
+    100% { transform: rotate(-90deg); }
+}
+@keyframes sm-smartphone-display-rotate {
+    0% { background-image: url('../img/smart/starting-vertical.svg'); }
+    50% { background-image: url('../img/smart/starting-vertical.svg'); }
+    55% { background-image: url('../img/smart/starting-horizontal.svg'); }
+    100% { background-image: url('../img/smart/starting-horizontal.svg'); }
+}
+
+@keyframes sm-smartphone-finger {
+    0% { background-image: url('../img/smart/finger.svg'); transform: translateY(0) translateX(30%); }
+    30% { background-image: url('../img/smart/finger.svg'); transform: translateY(-250%) translateX(30%);  }
+    40% { background-image: url('../img/smart/finger.svg'); transform: translateY(-250%) translateX(30%);  }
+    41% { background-image: url('../img/smart/finger-touching.svg'); transform: translateY(-250%) translateX(30%);  }
+    45% { background-image: url('../img/smart/finger-touching.svg'); transform: translateY(-250%) translateX(30%);  }
+    46% { background-image: url('../img/smart/finger.svg'); transform: translateY(-250%) translateX(30%);  }
+    80% { background-image: url('../img/smart/finger.svg'); transform: translateY(-200%) translateX(-100%);  }
+    100% { background-image: url('../img/smart/finger.svg'); transform: translateY(-200%) translateX(-100%);  }
+}
+@keyframes sm-smartphone-display-touched {
+    0% { background-image: url('../img/smart/applogo.svg'); }
+    45% { background-image: url('../img/smart/applogo.svg'); }
+    55% { background-image: url('../img/smart/starting-vertical.svg'); }
+    100% { background-image: url('../img/smart/starting-vertical.svg'); }
+}
+
+@keyframes sm-smartphone-calling {
+    0% { transform: rotateY(0deg); left: 0; }
+    20% { transform: rotateY(0deg); left: 0; }
+    60% { transform: rotateY(-45deg); left: 40%; }
+    100% { transform: rotateY(-45deg); left: 40%; }
+}
+@keyframes sm-smartphone-black-calling {
+    0% { opacity: 0; }
+    60% { opacity: 0;  }
+    70% { opacity: .8; }
+    100% { opacity: .8;  }
+}
+
+@keyframes sm-smartphone {
+    0% { opacity: 0; }
+    20% { opacity: 0; }
+    100% { opacity: 1; transform: rotateY(-20deg) rotateZ(6deg) rotateX(10deg);}
+}
+@keyframes sm-smartphone-display {
+    0% {opacity: 0; }
+    60% {opacity: 0; }
+    100% {opacity: 1; }
+}
+
+
+
+#sm-smartphone {
+    animation: sm-smartphone 1.5s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    background-image: url('../img/smart/phone.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 250px;
+    height: 400px;
+    transform-origin: center;
+}
+#sm-smartphone-display {
+    animation: sm-smartphone-display 1.5s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    background-image: url('../img/smart/applogo.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+
+#sm-smartphone-touched {
+    background-image: url('../img/smart/phone.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 150px;
+    height: 240px;
+}
+#sm-smartphone-display-touched {
+    animation: sm-smartphone-display-touched 4s linear infinite;
+    background-image: url('../img/smart/starting-vertical.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+#sm-smartphone-finger {
+    animation: sm-smartphone-finger 4s ease infinite;
+    background-image: url('../img/smart/finger.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 80px;
+    height: 80px;
+    transform: translateX(10%);
+}
+
+#sm-smartphone-rotate {
+    animation: sm-smartphone-rotate 4s ease infinite;
+    background-image: url('../img/smart/phone.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 150px;
+    height: 240px;
+    transform-origin: center;
+}
+#sm-smartphone-display-rotate {
+    animation: sm-smartphone-display-rotate 4s linear infinite;
+    background-image: url('../img/smart/starting-vertical.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+#sm-smartphone-calling {
+    animation: sm-smartphone-calling 4s ease infinite;
+    background-image: url('../img/smart/phone.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 150px;
+    height: 240px;
+    transform-origin: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#sm-smartphone-display-calling {
+    background-image: url('../img/smart/starting-vertical.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+#sm-smartphone-black-calling {
+    animation: sm-smartphone-black-calling 4s ease infinite;
+    background-image: url('../img/smart/black.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+
+
+
+/* HEIZDRAHT */
+
+#sm-heizdrahtSliderContainer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 15%;
+    height: 60px;
+    left: 1.5%;
+    top: 17%;
+    background-color: var(--tuk-blue);
+    border-radius: 5px;
+    padding: 5px;
+}
+#sm-heizdrahtSliderContainer.hidden {
+    display: none;
+}
+#sm-heizdrahtSliderContainer > div {
+    color: white;
+    width: 100%;
+    height: 20px;
+    user-select: none;
+    text-align: center;
+}
+#sm-heizdrahtSliderContainer > input {
+    margin-top: auto;
+}
+
+
+
+#sm-interactionContainer {
+    padding-left: 20px;
+    position: absolute;
+    display: block;
+    width: 100%;
+}
+#sm-exp2-arrow {
+    font-size: 16pt;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#sm-command {
+    width: 100%;
+    margin-bottom: 10px;
+}
+#sm-nextStepButton {
+    width: 100%;
+    max-width: initial;
+}
+
+
+
+modul1-th2-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+modul1-column.hidden {
+    display: none;
+}
+
+
+
+/* TEXTBOXES */
+
+.sm-textbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    line-height: 100%;
+    z-index: 1;
+}
+.sm-textbox:not(.hidden) {
+    animation: sm-textbox .75s ease;
+    animation-iteration-count: 1;
+}
+.sm-textbox.bordered {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px gray;
+}
+.sm-textbox.orange {
+    border-color: orange;
+    background-color: rgb(255, 227, 176);
+}
+.sm-textbox.blue {
+    border-color: blue;
+    background-color: rgb(208, 208, 255);
+}
+.sm-textbox.magenta {
+    border-color: blueviolet;
+    background-color: rgb(205, 187, 221);
+}
+.sm-textbox.hilight {
+    transform: scale(1.5);
+}
+
+@keyframes sm-textbox {
+    0% { transform: scale(1); opacity: 0; }
+    20% { transform: scale(1); opacity: 0;}
+    21% { transform: scale(0.8); opacity: 0; }
+    40% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+
+
+.sm-modul2-versuchsaufbau[sm-state="1"] .sm-modul2-versuchsaufbau-pipette {
+    animation: sm-modul2-pipette 3s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes sm-modul2-pipette {
+    0% {opacity: 0; top: 30%; }
+    20% {opacity: 1; top: 42.5%; }
+    80% {opacity: 1; top: 42.5%; }
+    100% {opacity: 0; top: 30%; }
+}
+.sm-modul2-versuchsaufbau[sm-state="1"] .sm-modul2-versuchsaufbau-ethanol {
+    animation: sm-modul2-ethanol 5s linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1.5s;
+    transform: scale(0);
+}
+@keyframes sm-modul2-ethanol {
+    0% { transform: scale(0); }
+    10% { transform: scale(1); }
+    20% { transform: scale(1); }
+    100% { transform: scale(0); }
+}
+.sm-modul2-versuchsaufbau[sm-state="1"] .sm-modul2-versuchsaufbau-farbe-a {
+    animation: sm-modul2-farbe-a 5s linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1.5s;
+}
+@keyframes sm-modul2-farbe-a {
+    0% { filter: saturate(0%) brightness(160%); }
+    20% { filter: saturate(0%) brightness(160%); }
+    100% { filter: saturate(100%) brightness(100%); }
+}
+
+
+.sm-modul2-versuchsaufbau2-spritze {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 8.55%;
+    top: 62%;
+    width: 4%;
+    height: 56%;
+
+    transform-origin: 50% 0%;
+    transform: rotate(50deg);
+
+    background-image: url('../img/modul2a/spritze.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.sm-modul2-versuchsaufbau2-spritze-gas {
+    display: block;
+    position: absolute;
+    background-color: rgb(255, 77, 77);
+    top: 16.2%;
+    width: 52%;
+    height: 0%;
+}
+.sm-modul2-versuchsaufbau2[sm-state="1"] .sm-modul2-versuchsaufbau2-spritze-gas, .sm-modul2-versuchsaufbau2[sm-state="3"] .sm-modul2-versuchsaufbau2-spritze-gas {
+    animation: sm-modul2-spritze-gas 1s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+}
+.sm-modul2-versuchsaufbau2[sm-state="2"] .sm-modul2-versuchsaufbau2-spritze-gas, .sm-modul2-versuchsaufbau2[sm-state="4"] .sm-modul2-versuchsaufbau2-spritze-gas {
+    height: 15%;
+    animation: sm-modul2-spritze-gas2 1s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+}
+@keyframes sm-modul2-spritze-gas {
+    0% { height: 0%; }
+    100% { height: 15%; }
+}
+@keyframes sm-modul2-spritze-gas2 {
+    0% { height: 15%; }
+    100% { height: 0%; }
+}
+.sm-modul2-versuchsaufbau2-spritze-kolben {
+    position: absolute;
+    display: block;
+    top: 0%;
+    
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../img/modul2a/spritze-kolben.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.sm-modul2-versuchsaufbau2[sm-state="1"]  .sm-modul2-versuchsaufbau2-spritze-kolben, .sm-modul2-versuchsaufbau2[sm-state="3"] .sm-modul2-versuchsaufbau2-spritze-kolben {
+    animation: sm-modul2-spritze-kolben 1s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+}
+.sm-modul2-versuchsaufbau2[sm-state="2"]  .sm-modul2-versuchsaufbau2-spritze-kolben, .sm-modul2-versuchsaufbau2[sm-state="4"] .sm-modul2-versuchsaufbau2-spritze-kolben {
+    top: 15%;
+    animation: sm-modul2-spritze-kolben2 1s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+}
+@keyframes sm-modul2-spritze-kolben {
+    0% { top: 0%; }
+    100% { top: 15%; }
+}
+@keyframes sm-modul2-spritze-kolben2 {
+    0% { top: 15%; }
+    100% { top: 0%; }
+}
+.sm-modul2-versuchsaufbau2[sm-state="1"] .sm-modul2-versuchsaufbau2-spritze, .sm-modul2-versuchsaufbau2[sm-state="3"] .sm-modul2-versuchsaufbau2-spritze {
+    animation: sm-modul2-spritze 3s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+.sm-modul2-versuchsaufbau2[sm-state="2"] .sm-modul2-versuchsaufbau2-spritze, .sm-modul2-versuchsaufbau2[sm-state="4"] .sm-modul2-versuchsaufbau2-spritze {
+    animation: sm-modul2-spritze2 3s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes sm-modul2-spritze {
+    0% {left: 0%; top: 62%;opacity: 0; }
+    30% { left: 8.55%; opacity: 1; }
+    70% { left: 8.55%; top: 62%; }
+    100% { left: 8%; top: 80%; }
+}
+@keyframes sm-modul2-spritze2 {
+    0% { left: 8%; top: 80%; transform: rotate(50deg); }
+    30% { left: 33%; top: 86%; transform: rotate(20deg); }
+    70% { left: 33%; top: 86%; transform: rotate(20deg); opacity: 1; }
+    100% { left: 28%; top: 80%; transform: rotate(20deg); opacity: 0; }
+}
+.sm-modul2-versuchsaufbau2-farbe-b {
+    filter: saturate(0%) brightness(160%);
+}
+.sm-modul2-versuchsaufbau2[sm-state="2"] .sm-modul2-versuchsaufbau2-farbe-b {
+    animation: sm-modul2-farbe-b 1s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+}
+.sm-modul2-versuchsaufbau2[sm-state="3"] .sm-modul2-versuchsaufbau2-farbe-b {
+    filter: saturate(20%) brightness(160%);
+}
+.sm-modul2-versuchsaufbau2[sm-state="4"] .sm-modul2-versuchsaufbau2-farbe-b {
+    filter: saturate(20%) brightness(160%);
+    animation: sm-modul2-farbe-b2 1s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+}
+@keyframes sm-modul2-farbe-b {
+    0% { filter: saturate(0%) brightness(160%); }
+    100% { filter: saturate(20%) brightness(160%); }
+}
+@keyframes sm-modul2-farbe-b2 {
+    0% { filter: saturate(20%) brightness(160%); }
+    100% { filter: saturate(50%) brightness(140%); }
+}
+
+
+
+
+.sm-training .sm-datapoint {
+    display: block;
+    position: absolute;
+    width: 3.5%;
+    height: 3.5%;
+    top: 50%;
+    left: 50%;
+    /*transition: top .3s ease, left .3s ease;*/
+    transform: translate(-50%, -50%);
+    background-image: url('../img/modul2a/gewichte/datenpunkt.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.sm-exercise-data {
+    display:grid; grid-template-columns: 1fr 1fr; grid-gap: 5px 5px; font-size: 10pt;
+}
+
+.sm-rahmen {
+    position: absolute;
+    left: 15%;
+    width: 70%;
+    top: 0%;
+    max-height: 100%;
+    min-height: 100%;
+}
+
+
+/*
+input[type=range]{
+    -webkit-appearance: none;
+}
+
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 0px;
+    background: none;
+    border: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--tuk-blue);
+    margin-top: -4px;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: none;
+}*/

@@ -1,0 +1,221 @@
+/* SMARTPHONE-ANIMATIONEN */
+
+@keyframes sm-smartphone-rotate {
+    0% { transform: rotate(0deg); }
+    30% { transform: rotate(0deg); }
+    60% { transform: rotate(-90deg); }
+    100% { transform: rotate(-90deg); }
+}
+@keyframes sm-smartphone-display-rotate {
+    0% { background-image: url('../img/smart/starting-vertical.svg'); }
+    50% { background-image: url('../img/smart/starting-vertical.svg'); }
+    55% { background-image: url('../img/smart/starting-horizontal.svg'); }
+    100% { background-image: url('../img/smart/starting-horizontal.svg'); }
+}
+
+@keyframes sm-smartphone-finger {
+    0% { background-image: url('../img/smart/finger.svg'); transform: translateY(0) translateX(30%); }
+    30% { background-image: url('../img/smart/finger.svg'); transform: translateY(-250%) translateX(30%);  }
+    40% { background-image: url('../img/smart/finger.svg'); transform: translateY(-250%) translateX(30%);  }
+    41% { background-image: url('../img/smart/finger-touching.svg'); transform: translateY(-250%) translateX(30%);  }
+    45% { background-image: url('../img/smart/finger-touching.svg'); transform: translateY(-250%) translateX(30%);  }
+    46% { background-image: url('../img/smart/finger.svg'); transform: translateY(-250%) translateX(30%);  }
+    80% { background-image: url('../img/smart/finger.svg'); transform: translateY(-200%) translateX(-100%);  }
+    100% { background-image: url('../img/smart/finger.svg'); transform: translateY(-200%) translateX(-100%);  }
+}
+@keyframes sm-smartphone-display-touched {
+    0% { background-image: url('../img/smart/applogo.svg'); }
+    45% { background-image: url('../img/smart/applogo.svg'); }
+    55% { background-image: url('../img/smart/starting-vertical.svg'); }
+    100% { background-image: url('../img/smart/starting-vertical.svg'); }
+}
+
+@keyframes sm-smartphone-calling {
+    0% { transform: rotateY(0deg); left: 0; }
+    20% { transform: rotateY(0deg); left: 0; }
+    60% { transform: rotateY(-45deg); left: 40%; }
+    100% { transform: rotateY(-45deg); left: 40%; }
+}
+@keyframes sm-smartphone-black-calling {
+    0% { opacity: 0; }
+    60% { opacity: 0;  }
+    70% { opacity: .8; }
+    100% { opacity: .8;  }
+}
+
+@keyframes sm-smartphone {
+    0% { opacity: 0; }
+    20% { opacity: 0; }
+    100% { opacity: 1; transform: rotateY(-20deg) rotateZ(6deg) rotateX(10deg);}
+}
+@keyframes sm-smartphone-display {
+    0% {opacity: 0; }
+    60% {opacity: 0; }
+    100% {opacity: 1; }
+}
+
+
+
+#sm-smartphone {
+    animation: sm-smartphone 1.5s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    background-image: url('../img/smart/phone.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 250px;
+    height: 400px;
+    transform-origin: center;
+}
+#sm-smartphone-display {
+    animation: sm-smartphone-display 1.5s ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    background-image: url('../img/smart/applogo.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+
+#sm-smartphone-touched {
+    background-image: url('../img/smart/phone.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 150px;
+    height: 240px;
+}
+#sm-smartphone-display-touched {
+    animation: sm-smartphone-display-touched 4s linear infinite;
+    background-image: url('../img/smart/starting-vertical.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+#sm-smartphone-finger {
+    animation: sm-smartphone-finger 4s ease infinite;
+    background-image: url('../img/smart/finger.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 80px;
+    height: 80px;
+    transform: translateX(10%);
+}
+
+#sm-smartphone-rotate {
+    animation: sm-smartphone-rotate 4s ease infinite;
+    background-image: url('../img/smart/phone.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 150px;
+    height: 240px;
+    transform-origin: center;
+}
+#sm-smartphone-display-rotate {
+    animation: sm-smartphone-display-rotate 4s linear infinite;
+    background-image: url('../img/smart/starting-vertical.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+#sm-smartphone-calling {
+    animation: sm-smartphone-calling 4s ease infinite;
+    background-image: url('../img/smart/phone.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 150px;
+    height: 240px;
+    transform-origin: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#sm-smartphone-display-calling {
+    background-image: url('../img/smart/starting-vertical.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+#sm-smartphone-black-calling {
+    animation: sm-smartphone-black-calling 4s ease infinite;
+    background-image: url('../img/smart/black.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+
+
+
+/* HEIZDRAHT */
+
+#sm-heizdrahtSliderContainer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 15%;
+    height: 60px;
+    left: 1.5%;
+    top: 17%;
+    background-color: var(--tuk-blue);
+    border-radius: 5px;
+    padding: 5px;
+}
+#sm-heizdrahtSliderContainer.hidden {
+    display: none;
+}
+#sm-heizdrahtSliderContainer > div {
+    color: white;
+    width: 100%;
+    height: 20px;
+    user-select: none;
+    text-align: center;
+}
+#sm-heizdrahtSliderContainer > input {
+    margin-top: auto;
+}
+
+
+
+#sm-interactionContainer {
+    padding-left: 20px;
+    position: absolute;
+    display: block;
+    width: 100%;
+}
+#sm-exp2-arrow {
+    font-size: 16pt;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#sm-command {
+    width: 100%;
+    margin-bottom: 10px;
+}
+#sm-nextStepButton {
+    width: 100%;
+    max-width: initial;
+}
+
+
+
+modul1-th2-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+modul1-column.hidden {
+    display: none;
+}

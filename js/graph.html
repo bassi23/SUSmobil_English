@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        .shapeDemo {
+            min-height: 200px;
+            width: 100%;
+        }
+
+        svg .purpleCircle {
+            fill: darkmagenta;
+            stroke: black;
+            stroke-width:5;
+        }
+
+        svg .greenRectangle {
+            fill: green;
+            stroke: black;
+            stroke-width: 5;
+        }
+
+        svg .redRectangle {
+            fill: red;
+            stroke: black;
+            stroke-width: 5;
+        }
+
+        div.container {
+            width: 100%;
+            height: 300px;
+        }
+        path {
+            stroke: black;
+            stroke-width: 1px;
+        }
+    </style>
+</head>
+<body>
+    <p>Responsive SVG sandbox</p>
+    <div class="container" viewBox="0 0 600 400"> 
+        <svg class="main" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none"> 
+            <path d="M 0 5 L 100 95" vector-effect="non-scaling-stroke"/>
+            <text text-anchor="middle" x="5" y="75">A</text>
+        </svg>
+    </svg>
+</body>
+</html>
