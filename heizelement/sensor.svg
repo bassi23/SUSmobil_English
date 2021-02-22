@@ -1,0 +1,29 @@
+<svg width="220.51" height="72" version="1.1" viewBox="0 0 58.342 19.05" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(16.528 -277.08)">
+  <g>
+   <path d="m24.948 295.86h-9.2604v-18.521h9.2604" fill="none" stroke="#676767" stroke-width=".52917"/>
+   <path d="m24.948 286.6h-18.521" fill="none" stroke="#bcbcbc" stroke-width=".52917"/>
+   <circle cx="15.688" cy="286.6" r="7.9375" fill="#999bcf" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26458" style="paint-order:stroke markers fill"/>
+   <circle cx="15.688" cy="286.6" r="3.9688" fill="#a6ce7a" stroke="#f7ff81" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6458" style="paint-order:stroke markers fill"/>
+  </g>
+  <path d="m15.423 291.63-1.0583 4.2333h-1.3229" fill="none" stroke="#000" stroke-width=".26458px"/>
+  <text x="12.550296" y="296.1098" fill="#000000" font-family="sans-serif" font-size="1.436px" letter-spacing="0px" stroke-width=".089747" text-align="end" text-anchor="end" word-spacing="0px" style="line-height:2.2436831px" xml:space="preserve"><tspan x="12.550296" y="296.1098" stroke-width=".089747">Sensitive Schicht</tspan></text>
+  <path d="m28.917 283.96-2.6458-6.6146" fill="none" stroke="#000" stroke-width=".26458px"/>
+  <path d="m26.271 295.86 2.6458-6.6146" fill="none" stroke="#000" stroke-width=".26458px"/>
+  <text x="33.996716" y="286.20267" fill="#000000" font-family="sans-serif" font-size="1.4856px" letter-spacing="0px" stroke-width=".047259" text-align="end" text-anchor="middle" word-spacing="0px" style="line-height:1.18146551px" xml:space="preserve"><tspan x="33.996716" y="286.20267" text-align="center" style="line-height:1.32291663px">Anschlüsse für</tspan><tspan x="33.996716" y="287.66446" text-align="center" style="line-height:1.32291663px">Widerstandsmessung</tspan></text>
+  <text x="6.6519899" y="281.629" fill="#000000" font-family="sans-serif" font-size="1.436px" letter-spacing="0px" stroke-width=".089747" text-align="end" text-anchor="end" word-spacing="0px" style="line-height:2.2436831px" xml:space="preserve"><tspan x="6.6519899" y="281.629" stroke-width=".089747">Heizdraht</tspan></text>
+  <g fill="none" stroke="#000">
+   <path d="m-2.8329 285.28v-2.6458h24.342v2.6458h-11.906l-2e-7 2.6458h11.906l1e-6 2.6458h-24.342v-2.6458" stroke-linejoin="round" stroke-width=".79375"/>
+   <g>
+    <path d="m-4.685 285.28h3.7042" stroke-width=".26458px"/>
+    <path d="m-4.1558 287.93h2.6458" stroke-width=".26458px"/>
+    <g stroke-width=".26458px">
+     <path d="m-5.4788 287.93v-2.6458"/>
+     <path d="m-6.0079 285.81 0.52917-0.52916 0.52917 0.52916"/>
+     <path d="m-4.9496 287.4-0.52917 0.52917-0.52917-0.52917"/>
+    </g>
+   </g>
+  </g>
+  <text x="-6.5461636" y="286.98096" fill="#000000" font-family="sans-serif" font-size="1.436px" letter-spacing="0px" stroke-width=".089747" text-align="end" text-anchor="end" word-spacing="0px" style="line-height:2.2436831px" xml:space="preserve"><tspan x="-6.5461631" y="286.98096" stroke-width=".089747">Heizspannung</tspan></text>
+ </g>
+</svg>
